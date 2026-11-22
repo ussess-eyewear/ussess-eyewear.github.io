@@ -187,3 +187,5 @@ textarea{min-height:90px; resize:vertical;}
 /* prodotti più grandi da computer; telefono invariato */
 @media(min-width:720px){.grid{--pw:min(260px, calc((100vw - 2px) / 3 - 40px));}}
 @media(min-width:1024px){.grid{--pw:min(360px, calc((100vw - 2px) / 3 - 56px));} .card{padding:48px 24px 40px; gap:14px;} .name{font-size:14px;} .price{font-size:13px;}}
+/* video AI in alto: taglio orizzontale 3:2 dal reel */
+.hero:not(.hero-bw) video{aspect-ratio:3/2; object-position:50% 50%; background:#f2f2f0;}
