@@ -180,7 +180,11 @@ function heroVideo(){
   ["heroVideo","bwVideo"].forEach(function(id){
     var v = document.getElementById(id); if (!v) return;
     /* se il video AI non c'è ancora, ripiega sul video b/n */
-    if (id === "heroVideo") v.addEventListener("error", function(){ if (v.getAttribute("src") !== "hero.mp4") { v.setAttribute("poster","hero-poster.jpg"); v.src = "hero.mp4"; if (!reduce) v.play().catch(function(){}); } }, true);
+    if (id === "heroVideo") {
+      var fallback = function(){ if (v.getAttribute("src") !== "hero.mp4") { v.setAttribute("poster","hero-poster.jpg"); v.src = "hero.mp4"; if (!reduce) v.play().catch(function(){}); } };
+      v.addEventListener("error", fallback, true);
+      if (v.error) fallback();
+    }
     if (reduce) { v.removeAttribute("autoplay"); v.pause(); return; }
     var p = v.play(); if (p && p.catch) p.catch(function(){});
   });
