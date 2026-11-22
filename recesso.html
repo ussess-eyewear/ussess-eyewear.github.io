@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Recedi dal contratto · USSESS</title>
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap">
+<link rel="stylesheet" href="style.css">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}[hidden]{display:none!important}</style>
+</head>
+<body>
+<header class="site-header">
+  <button class="ibtn" type="button" aria-label="Apri menu" onclick="openMenu()"><svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+  <a class="logo-link" href="index.html" aria-label="USSESS"><img class="logo-img" src="logo.png" alt="USSESS"></a>
+  <a class="ibtn cart-link" href="cart.html" aria-label="Carrello"><svg viewBox="0 0 24 24"><circle cx="9" cy="20" r="1.3"/><circle cx="18" cy="20" r="1.3"/><path d="M2 3h3l2.2 12.3a1 1 0 0 0 1 .8h8.6a1 1 0 0 0 1-.78L21 7H6"/></svg><span class="badge" id="badge" hidden>0</span></a>
+</header>
+
+<div class="overlay" id="overlay" onclick="closeMenu()"></div>
+<nav class="drawer" id="drawer" aria-label="Menu">
+  <button class="close" type="button" onclick="closeMenu()" aria-label="Chiudi menu">&times;</button>
+  <a href="index.html#shop">Shop</a>
+  <a href="cart.html">Carrello</a>
+  <a href="contatti.html">Contatti</a>
+  <a href="policy.html">Resi e policy</a>
+  <div class="d-foot">Antwerp</div>
+</nav>
+<main class="page">
+<h1>Recedi dal contratto</h1>
+<p class="sub">Hai 14 giorni dalla consegna. Ci vogliono due passaggi.</p>
+<div class="steps" id="step1">
+  <form id="wForm">
+    <label for="nome">Nome e cognome</label><input id="nome" name="nome" required autocomplete="name">
+    <label for="email">Email usata per l'ordine</label><input id="email" name="email" type="email" required autocomplete="email">
+    <label for="ordine">Numero ordine</label><input id="ordine" name="ordine" required>
+    <label for="data">Data dell'ordine o della consegna</label><input id="data" name="data" type="date" required>
+    <label for="note">Note (facoltativo)</label><textarea id="note" name="note"></textarea>
+    <p style="margin-top:20px"><button class="btn" type="submit">Recedi dal contratto qui</button></p>
+  </form>
+</div>
+<div class="steps" id="step2" hidden>
+  <p><strong>Controlla e conferma:</strong></p>
+  <p id="wSummary"></p>
+  <p style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn" type="button" id="wConfirm">Conferma il recesso</button><button class="btn ghost" type="button" id="wBack">Modifica</button></p>
+</div>
+<div class="steps" id="step3" hidden>
+  <p><strong>Richiesta pronta.</strong> Si apre la tua app email con il messaggio già scritto per <span class="todo" id="shopEmail">email da inserire</span>: invialo. Ti rispondiamo con la conferma di ricezione e le istruzioni per il reso.</p>
+</div>
+<p style="margin-top:24px">Condizioni complete nella sezione <a href="policy.html#resi" style="text-decoration:underline">Resi e rimborsi</a>.</p>
+</main>
+<footer class="site-footer">
+  <img class="f-logo" src="logo.png" alt="USSESS">
+  <div class="f-line"><span>Eyewear</span><span>Antwerp</span><span>ussess.com</span><a href="contatti.html">Contatti</a></div>
+  <div class="f-line"><a href="policy.html#resi">Resi e rimborsi</a><a href="policy.html#spedizioni">Spedizioni</a><a href="policy.html#privacy">Privacy</a><a href="policy.html#termini">Termini</a><a href="recesso.html">Recedi dal contratto</a></div>
+  <div class="f-copy">© <span id="year">2026</span> Ussess — Tutti i diritti riservati · <a href="policy.html#legali">Note legali</a></div>
+</footer>
+<script src="app.js"></script>
+</body>
+</html>
