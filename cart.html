@@ -34,7 +34,10 @@
 <div class="empty" id="empty" hidden>Il carrello è vuoto. <a href="index.html#shop">Torna al catalogo</a></div>
 <div class="summary" id="summary" hidden>
   <div class="row muted"><span>Subtotale</span><span id="subtotal">—</span></div>
-  <div class="row muted"><span>Spedizione</span><span class="todo">da definire</span></div>
+  <div class="row muted"><label for="dest" style="margin:0;text-transform:none;letter-spacing:.2px;font-size:14px;color:var(--muted)">Consegna in</label>
+    <select id="dest" class="dest"><option value="it">Italia</option><option value="eu">Altro paese europeo</option></select></div>
+  <div class="row muted"><span>Spedizione</span><span id="ship">—</span></div>
+  <p class="pay-note" id="shipNote" style="text-align:left">Gratuita in Italia. In Europa gratuita sopra 59,99 €.</p>
   <div class="row total"><span>Totale</span><span id="total">—</span></div>
 </div>
 <div class="pay" id="pay" hidden>
@@ -46,9 +49,9 @@
 <footer class="site-footer">
   <img class="f-logo" src="logo.png" alt="USSESS">
   <div class="f-line"><span>Eyewear</span><span>Antwerp</span><span>ussess.com</span><a href="contatti.html">Contatti</a></div>
-  <div class="f-line"><a href="policy.html#resi">Resi e rimborsi</a><a href="policy.html#spedizioni">Spedizioni</a><a href="policy.html#privacy">Privacy</a><a href="policy.html#termini">Termini</a><a href="recesso.html">Recedi dal contratto</a></div>
-  <div class="f-copy">© <span id="year">2026</span> Ussess — Tutti i diritti riservati · <a href="policy.html#legali">Note legali</a></div>
+  <div class="f-line"><a href="policy.html#resi">Resi e rimborsi</a><a href="policy.html#spedizioni">Spedizioni</a><a href="policy.html#privacy">Privacy</a><a href="policy.html#termini">Termini</a></div>
+  <div class="f-copy">© <span id="year">2026</span> Ussess — Tutti i diritti riservati</div>
 </footer>
-<script src="app.js"></script>
+<script src="app.js" charset="utf-8"></script>
 </body>
 </html>
