@@ -1,4 +1,4 @@
-/* USSESS \u2014 logica condivisa: catalogo, carrello persistente, PayPal. */
+/* USSESS \u2014 logica condivisa (testi tradotti in i18n.js, funzione T): catalogo, carrello persistente, PayPal. */
 
 /* ====== DA COMPILARE ====== */
 // Client ID "Live" dell'app REST PayPal (developer.paypal.com > Apps & Credentials). \u00C8 pubblico: si pu\u00F2 mettere qui.
@@ -79,7 +79,7 @@ function firstAvail(p){ for (var k=0;k<p.colors.length;k++) if (p.colors[k].stoc
 function cardHTML(p){
   var ci = firstAvail(p), v = p.colors[ci], h = "";
   h += '<div class="thumb"><img src="'+v.img+'" alt="'+itemName(p, ci)+'" loading="lazy">' +
-       (p.fit ? '<button type="button" class="fitbtn" aria-label="Foto indossata">Fit</button>' : '') + '</div>';
+       (p.fit ? '<button type="button" class="fitbtn" aria-label="'+T("fit.aria")+'">Fit</button>' : '') + '</div>';
   if (p.colors.length > 1) {
     h += '<div class="swatches">';
     p.colors.forEach(function(x, k){
@@ -90,8 +90,8 @@ function cardHTML(p){
   h += '<div class="meta"><span class="name">'+p.name+'</span>' +
        (p.colors.length > 1 ? '<span class="cname">'+v.c+'</span>' : '') +
        '<span class="price">'+(p.was ? '<s>'+eur(p.was)+'</s> ' : '')+'<b>'+eur(p.price)+'</b></span></div>';
-  if (SHOP_OPEN) h += '<button class="add" type="button" data-id="'+p.id+'">Aggiungi<span class="long"> al carrello</span></button>';
-  else if (soldOut(p)) h += '<span class="soldout">Esaurito</span>';
+  if (SHOP_OPEN) h += '<button class="add" type="button" data-id="'+p.id+'">'+T("add.short")+'<span class="long">'+T("add.long")+'</span></button>';
+  else if (soldOut(p)) h += '<span class="soldout">'+T("soldout")+'</span>';
   return h;
 }
 function setColor(card, p, ci){
@@ -106,7 +106,7 @@ function refreshAdd(card, p){
   var b = card.querySelector(".add"); if (!b) return;
   var ci = +card.getAttribute("data-ci"), ok = left(p, ci) > 0;
   b.disabled = !ok;
-  b.innerHTML = ok ? 'Aggiungi<span class="long"> al carrello</span>' : (color(p, ci).stock <= 0 ? "Esaurito" : "Nel carrello");
+  b.innerHTML = ok ? T("add.short")+'<span class="long">'+T("add.long")+'</span>' : (color(p, ci).stock <= 0 ? T("soldout") : T("incart"));
 }
 function renderCatalog(){
   var grid = document.getElementById("grid"); if (!grid) return;
@@ -122,7 +122,7 @@ function renderCatalog(){
   grid.appendChild(more);
   var all = grid.querySelectorAll(".card"), last = all[all.length-1], n = all.length;
   if (n > VISIBLE && n % 3 === 1) last.classList.add("solo");
-  document.getElementById("count").textContent = PRODUCTS.length + " modelli";
+  document.getElementById("count").textContent = T("home.models", { n: PRODUCTS.length });
   grid.addEventListener("click", function(e){
     var card = e.target.closest(".card"); if (!card) return;
     var p = product(card.getAttribute("data-id"));
@@ -133,17 +133,17 @@ function renderCatalog(){
       img.src = on ? p.fit : p.colors[ci].img; return; }
     var b = e.target.closest(".add"); if (!b || b.disabled) return;
     if (addToCart(p.id, +card.getAttribute("data-ci"))) {
-      b.classList.add("done"); b.textContent = "Aggiunto \u2713";
+      b.classList.add("done"); b.textContent = T("add.done");
       setTimeout(function(){ b.classList.remove("done"); refreshAdd(card, p); }, 1400);
     }
   });
   if (!SHOP_OPEN) { var w = document.querySelector(".more-wrap");
-    if (w) w.insertAdjacentHTML("afterend", '<p class="vetrina-note">Shop online in arrivo. Per ordinare scrivici: <a href="contatti.html">Contatti</a></p>'); }
+    if (w) w.insertAdjacentHTML("afterend", '<p class="vetrina-note">'+T("shop.soon")+' <a href="contatti.html">'+T("nav.contact")+'</a></p>'); }
   var btn = document.getElementById("moreBtn"), lbl = document.getElementById("moreLabel");
   if (PRODUCTS.length <= VISIBLE && btn) { btn.parentNode.hidden = true; }
   if (btn) btn.addEventListener("click", function(){
     var open = more.hidden; more.hidden = !open; grid.classList.toggle("collapsed", !open);
-    btn.textContent = open ? "\u2212" : "+"; lbl.textContent = open ? "Mostra meno" : "Mostra tutto";
+    btn.textContent = open ? "\u2212" : "+"; lbl.textContent = open ? T("home.showLess") : T("home.showAll");
   });
 }
 
@@ -205,24 +205,24 @@ function renderCart(){
     var full = i.qty >= v.stock;
     var row = document.createElement("div"); row.className = "item";
     row.innerHTML = '<div class="thumb"><img src="'+v.img+'" alt="'+itemName(p, i.ci)+'"></div>' +
-      '<div class="info"><div class="nm">'+p.name+'</div><div class="vr">'+(v.c || "Occhiali da sole")+'</div>' +
-      '<div class="qty"><button type="button" data-a="dec" data-id="'+p.id+'" data-ci="'+i.ci+'" aria-label="Diminuisci">&minus;</button><span>'+i.qty+'</span>' +
-      '<button type="button" data-a="inc" data-id="'+p.id+'" data-ci="'+i.ci+'" aria-label="Aumenta"'+(full?' disabled':'')+'>+</button></div>' +
-      (full ? '<div class="last">Ultimo pezzo</div>' : '') + '</div>' +
+      '<div class="info"><div class="nm">'+p.name+'</div><div class="vr">'+(v.c || T("cart.sunglasses"))+'</div>' +
+      '<div class="qty"><button type="button" data-a="dec" data-id="'+p.id+'" data-ci="'+i.ci+'" aria-label="'+T("cart.dec")+'">&minus;</button><span>'+i.qty+'</span>' +
+      '<button type="button" data-a="inc" data-id="'+p.id+'" data-ci="'+i.ci+'" aria-label="'+T("cart.inc")+'"'+(full?' disabled':'')+'>+</button></div>' +
+      (full ? '<div class="last">'+T("cart.last")+'</div>' : '') + '</div>' +
       '<div class="right"><div class="pr">'+(p.price==null ? "\u2014" : eur(p.price*i.qty))+'</div>' +
-      '<button class="rm" type="button" data-a="rm" data-id="'+p.id+'" data-ci="'+i.ci+'">Rimuovi</button></div>';
+      '<button class="rm" type="button" data-a="rm" data-id="'+p.id+'" data-ci="'+i.ci+'">'+T("cart.remove")+'</button></div>';
     box.appendChild(row);
   });
   var empty = c.length === 0;
   document.getElementById("empty").hidden = !empty;
   document.getElementById("summary").hidden = empty;
   document.getElementById("pay").hidden = empty;
-  document.getElementById("sub").textContent = n + (n===1 ? " articolo" : " articoli");
+  document.getElementById("sub").textContent = n + " " + (n===1 ? T("cart.item") : T("cart.items"));
   var dest = readDest(), sel = document.getElementById("dest"); if (sel) sel.value = dest;
   var ship = null;
   if (!missing) ship = dest === "it" ? SHIPPING.italy : (total >= SHIPPING.europeFreeFrom ? 0 : SHIPPING.europe);
   var shipMissing = !missing && ship == null;
-  document.getElementById("ship").textContent = missing ? "\u2014" : (ship == null ? "da definire" : (ship === 0 ? "Gratuita" : eur(ship)));
+  document.getElementById("ship").textContent = missing ? "\u2014" : (ship == null ? T("cart.tbd") : (ship === 0 ? T("cart.free") : eur(ship)));
   document.getElementById("subtotal").textContent = missing ? "\u2014" : eur(total);
   document.getElementById("total").textContent = (missing || shipMissing) ? "\u2014" : eur(total + ship);
   setupPay(empty ? null : { total: total, ship: ship || 0, missing: missing || shipMissing, items: c });
@@ -251,9 +251,9 @@ function setupPay(order){
   lastOrder = order;
   slot.innerHTML = "";
   if (!order) return;
-  if (order.missing){ payNote("Il pagamento si attiva quando prezzi e spedizione sono definiti."); return; }
-  if (!PAYPAL.clientId){ payNote("Pagamento con PayPal in attivazione."); return; }
-  payNote("Pagamento sicuro con PayPal o carta.");
+  if (order.missing){ payNote(T("pay.missing")); return; }
+  if (!PAYPAL.clientId){ payNote(T("pay.soon")); return; }
+  payNote(T("pay.secure"));
   loadSdk(function(){ renderButtons(order); });
 }
 function loadSdk(cb){
@@ -263,7 +263,7 @@ function loadSdk(cb){
   var s = document.createElement("script");
   s.src = "https://www.paypal.com/sdk/js?client-id=" + encodeURIComponent(PAYPAL.clientId) + "&currency=" + PAYPAL.currency + "&intent=capture";
   s.onload = function(){ sdkState = "ready"; if (lastOrder && !lastOrder.missing) renderButtons(lastOrder); };
-  s.onerror = function(){ sdkState = "error"; payNote("PayPal non si carica in questa anteprima: funziona sul sito online (ussess.com)."); };
+  s.onerror = function(){ sdkState = "error"; payNote(T("pay.preview")); };
   document.head.appendChild(s);
 }
 function renderButtons(order){
@@ -280,17 +280,17 @@ function renderButtons(order){
     onApprove: function(d, actions){
       return actions.order.capture().then(function(det){
         writeCart([]);
-        document.querySelector(".page").innerHTML = '<h1>Grazie.</h1><p class="sub">Ordine ricevuto. Riceverai la conferma via email da PayPal.</p>' +
-          '<p>Codice ordine: <strong>' + (det && det.id ? det.id : "") + '</strong></p><p><a class="btn" href="index.html">Torna al catalogo</a></p>';
+        document.querySelector(".page").innerHTML = '<h1>'+T("thanks.title")+'</h1><p class="sub">'+T("thanks.sub")+'</p>' +
+          '<p>'+T("thanks.code")+': <strong>' + (det && det.id ? det.id : "") + '</strong></p><p><a class="btn" href="index.html">'+T("cart.back")+'</a></p>';
       });
     },
-    onError: function(){ payNote("Qualcosa non \u00E8 andato a buon fine con il pagamento. Riprova o scrivici dalla pagina Contatti."); }
+    onError: function(){ payNote(T("pay.error")); }
   }).render("#paypal-buttons");
 }
 
 function copyText(id, btn){
   var t = document.getElementById(id).textContent.trim();
-  function ok(){ btn.textContent = "Copiato"; setTimeout(function(){ btn.textContent = "Copia"; }, 1400); }
+  function ok(){ btn.textContent = T("contact.copied"); setTimeout(function(){ btn.textContent = T("contact.copy"); }, 1400); }
   if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(ok, function(){ sel(id); });
   else sel(id);
 }
