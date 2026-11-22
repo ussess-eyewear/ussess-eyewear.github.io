@@ -189,3 +189,7 @@ textarea{min-height:90px; resize:vertical;}
 @media(min-width:1024px){.grid{--pw:min(360px, calc((100vw - 2px) / 3 - 56px));} .card{padding:48px 24px 40px; gap:14px;} .name{font-size:14px;} .price{font-size:13px;}}
 /* video AI in alto: taglio orizzontale 3:2 dal reel */
 .hero:not(.hero-bw) video{aspect-ratio:3/2; object-position:50% 50%; background:#f2f2f0;}
+/* spazio nero di 1 cm sopra il banner, sempre visibile */
+.gap-1cm{display:block; height:1cm; min-height:38px; background:#000;}
+/* banner più sottile solo su telefono */
+@media(max-width:719px){.ticker{padding-block:7px;} .ticker .lg{height:10px; margin-right:30px;} .u3d-wrap{margin-right:30px;} .u3d{width:20px; height:10px;}}
