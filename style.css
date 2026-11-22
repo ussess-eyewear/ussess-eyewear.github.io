@@ -178,3 +178,12 @@ textarea{min-height:90px; resize:vertical;}
 .swing .card:not(.fit-on) .thumb img{mix-blend-mode:multiply; animation:swing 7s ease-in-out infinite; animation-delay:var(--d,0s); transform-origin:50% 50%;}
 @keyframes swing{0%,100%{transform:rotateY(-38deg)} 50%{transform:rotateY(38deg)}}
 @media (prefers-reduced-motion: reduce){.swing .thumb img{animation:none;}}
+
+/* LAYOUT HOME v2 — video AI in alto, 1 cm, banner, 1 cm, catalogo, "+", video b/n */
+.gap-1cm{height:1cm; background:var(--bg);}
+.hero{border-bottom:0;}
+.hero-bw{margin-top:0;}
+.hero-bw video{aspect-ratio:5/2; background:#000;}
+/* prodotti più grandi da computer; telefono invariato */
+@media(min-width:720px){.grid{--pw:min(260px, calc((100vw - 2px) / 3 - 40px));}}
+@media(min-width:1024px){.grid{--pw:min(360px, calc((100vw - 2px) / 3 - 56px));} .card{padding:48px 24px 40px; gap:14px;} .name{font-size:14px;} .price{font-size:13px;}}

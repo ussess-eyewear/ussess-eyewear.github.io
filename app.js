@@ -176,10 +176,14 @@ function analytics(){
 
 /* video hero: rispetta chi ha ridotto le animazioni */
 function heroVideo(){
-  var v = document.getElementById("heroVideo"); if (!v) return;
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (reduce) { v.removeAttribute("autoplay"); v.pause(); return; }
-  var p = v.play(); if (p && p.catch) p.catch(function(){});
+  ["heroVideo","bwVideo"].forEach(function(id){
+    var v = document.getElementById(id); if (!v) return;
+    /* se il video AI non c'è ancora, ripiega sul video b/n */
+    if (id === "heroVideo") v.addEventListener("error", function(){ if (v.getAttribute("src") !== "hero.mp4") { v.setAttribute("poster","hero-poster.jpg"); v.src = "hero.mp4"; if (!reduce) v.play().catch(function(){}); } }, true);
+    if (reduce) { v.removeAttribute("autoplay"); v.pause(); return; }
+    var p = v.play(); if (p && p.catch) p.catch(function(){});
+  });
 }
 
 /* ---------- CARRELLO ---------- */
