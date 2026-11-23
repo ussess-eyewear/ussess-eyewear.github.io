@@ -8,8 +8,10 @@ var PAYPAL = { clientId: "Ae2LPyAlxgUn3PJZfyAwYVsBwMZPGYbpwoxs5gL36o4RRGqJjtVcZi
 // Catalogo. price = prezzo attuale in euro; was = prezzo d'origine (barrato), facoltativo.
 // colors = colorazioni: c = nome colore (in inglese), img = foto, stock = pezzi disponibili, sw = [colore montatura, colore lente] per il pallino.
 // Quando un pezzo viene venduto: abbassa lo stock di quella colorazione (0 = esaurito).
-// fit = foto indossata (facoltativa). Per sospendere un modello spostalo tra i SOSPESI.
+// gallery = più foto della stessa colorazione, a scorrimento (facoltativa). fit = foto indossata (facoltativa). Per sospendere un modello spostalo tra i SOSPESI.
 var PRODUCTS = [
+  { id: "milan-xl",       name: "Milan XL",       price: 27.90, was: 33.90, colors: [
+      { c: null, img: "p/milan-xl-front.jpg", gallery: ["p/milan-xl-front.jpg", "p/milan-xl-45.jpg", "p/milan-xl-back.jpg"], stock: 3 } ] },
   { id: "berlin-mask",    name: "Berlin Mask",    price: 25.90, was: 33.90, colors: [
       { c: "Black",  img: "p/berlin-mask-black.jpg",  stock: 1, sw: ["#141414", "#2b2b2b"] },
       { c: "Silver", img: "p/berlin-mask-silver.jpg", stock: 1, sw: ["#d8dadc", "#a9adb1"] },
@@ -91,8 +93,16 @@ function closeMenu(){ document.getElementById("drawer").classList.remove("open")
 function firstAvail(p){ for (var k=0;k<p.colors.length;k++) if (p.colors[k].stock > 0) return k; return 0; }
 function cardHTML(p){
   var ci = firstAvail(p), v = p.colors[ci], h = "";
-  h += '<div class="thumb"><img src="'+v.img+'" alt="'+itemName(p, ci)+'" loading="lazy">' +
-       (p.fit ? '<button type="button" class="fitbtn" aria-label="'+T("fit.aria")+'">Fit</button>' : '') + '</div>';
+  var fitb = p.fit ? '<button type="button" class="fitbtn" aria-label="'+T("fit.aria")+'">Fit</button>' : '';
+  if (v.gallery && v.gallery.length > 1) {
+    h += '<div class="thumb gal"><div class="gal-track">';
+    v.gallery.forEach(function(src, k){ h += '<img src="'+src+'" alt="'+itemName(p, ci)+' '+(k+1)+'/'+v.gallery.length+'" loading="lazy" draggable="false">'; });
+    h += '</div><div class="gal-dots">';
+    v.gallery.forEach(function(src, k){ h += '<button type="button" class="'+(k===0?'on':'')+'" data-k="'+k+'" aria-label="'+(k+1)+'/'+v.gallery.length+'"></button>'; });
+    h += '</div>' + fitb + '</div>';
+  } else {
+    h += '<div class="thumb"><img src="'+v.img+'" alt="'+itemName(p, ci)+'" loading="lazy">' + fitb + '</div>';
+  }
   if (p.colors.length > 1) {
     h += '<div class="swatches">';
     p.colors.forEach(function(x, k){
@@ -136,10 +146,20 @@ function renderCatalog(){
   var all = grid.querySelectorAll(".card"), last = all[all.length-1], n = all.length;
   if (n > VISIBLE && n % 3 === 1) last.classList.add("solo");
   document.getElementById("count").textContent = T("home.models", { n: PRODUCTS.length });
+  grid.addEventListener("scroll", function(e){
+    var tr = e.target; if (!tr.classList || !tr.classList.contains("gal-track")) return;
+    var k = Math.round(tr.scrollLeft / tr.clientWidth);
+    tr.parentNode.querySelectorAll(".gal-dots button").forEach(function(d, i){ d.classList.toggle("on", i === k); });
+  }, true);
   grid.addEventListener("click", function(e){
     var card = e.target.closest(".card"); if (!card) return;
     var p = product(card.getAttribute("data-id"));
     var sw = e.target.closest(".sw"); if (sw) { setColor(card, p, +sw.getAttribute("data-ci")); return; }
+    var tr = card.querySelector(".gal-track");
+    var dot = e.target.closest(".gal-dots button");
+    if (tr && dot) { tr.scrollTo({ left: tr.clientWidth * +dot.getAttribute("data-k"), behavior: "smooth" }); return; }
+    if (tr && e.target.closest(".gal-track")) { var n = tr.children.length, k = Math.round(tr.scrollLeft / tr.clientWidth);
+      tr.scrollTo({ left: tr.clientWidth * ((k + 1) % n), behavior: "smooth" }); return; }
     var fb = e.target.closest(".fitbtn");
     if (fb) { var on = !card.classList.contains("fit-on"); card.classList.toggle("fit-on", on); fb.classList.toggle("on", on);
       var img = card.querySelector(".thumb img"), ci = +card.getAttribute("data-ci");
