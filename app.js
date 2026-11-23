@@ -10,6 +10,19 @@ var PAYPAL = { clientId: "Ae2LPyAlxgUn3PJZfyAwYVsBwMZPGYbpwoxs5gL36o4RRGqJjtVcZi
 // Quando un pezzo viene venduto: abbassa lo stock di quella colorazione (0 = esaurito).
 // fit = foto indossata (facoltativa). Per sospendere un modello spostalo tra i SOSPESI.
 var PRODUCTS = [
+  { id: "berlin-mask",    name: "Berlin Mask",    price: 25.90, was: 33.90, colors: [
+      { c: "Black",  img: "p/berlin-mask-black.jpg",  stock: 1, sw: ["#141414", "#2b2b2b"] },
+      { c: "Silver", img: "p/berlin-mask-silver.jpg", stock: 1, sw: ["#d8dadc", "#a9adb1"] },
+      { c: "Brown",  img: "p/berlin-mask-brown.jpg",  stock: 0, sw: ["#7a4a24", "#8a5a2b"] } ] },
+  { id: "square-milan",   name: "Square Milan",   price: 33.90, colors: [
+      { c: "Black",    img: "p/square-milan-black.jpg",    stock: 1, sw: ["#111111", "#3a3a3a"] },
+      { c: "Tortoise", img: "p/square-milan-tortoise.jpg", stock: 0, sw: ["#5a2a12", "#7a4a2a"] },
+      { c: "Brown",    img: "p/square-milan-brown.jpg",    stock: 0, sw: ["#a4542a", "#3a3a3a"] } ] },
+  { id: "jewi-square",    name: "Jewi Square",    price: 33.90, colors: [
+      { c: "Black",             img: "p/jewi-square-black.jpg",    stock: 1, sw: ["#121212", "#3a3a3a"] },
+      { c: "Tortoise",          img: "p/jewi-square-tortoise.jpg", stock: 0, sw: ["#5a2a12", "#8a5a2b"] },
+      { c: "Transparent Blue",  img: "p/jewi-square-blue.jpg",     stock: 1, sw: ["#7fa8d6", "#3d4540"] },
+      { c: "Transparent Pink",  img: "p/jewi-square-pink.jpg",     stock: 1, sw: ["#f2b8c6", "#f3a3b8"] } ] },
   { id: "alien-berlin",   name: "Alien Berlin",   price: 39.90, colors: [{ c: null, img: "p/alien-berlin.jpg", stock: 1 }] },
   { id: "bones-2",        name: "Bones 2",        price: 33.90, colors: [{ c: null, img: "p/bones-2.jpg", stock: 1 }] },
   { id: "bruxelles-base", name: "Bruxelles Base", price: 22.90, was: 29.90, colors: [{ c: null, img: "p/bruxelles-base.jpg", stock: 1 }] },
