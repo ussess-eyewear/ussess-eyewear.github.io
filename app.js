@@ -14,17 +14,17 @@ var PRODUCTS = [
       { c: null, img: "p/milan-xl-front.jpg", gallery: ["p/milan-xl-front.jpg", "p/milan-xl-45.jpg", "p/milan-xl-back.jpg"], stock: 3 } ] },
   { id: "berlin-mask",    name: "Berlin Mask",    price: 25.90, was: 33.90, colors: [
       { c: "Black",  img: "p/berlin-mask-black.jpg",  stock: 1, sw: ["#141414", "#2b2b2b"] },
-      { c: "Silver", img: "p/berlin-mask-silver.jpg", stock: 1, sw: ["#d8dadc", "#a9adb1"] },
-      { c: "Brown",  img: "p/berlin-mask-brown.jpg",  stock: 0, sw: ["#7a4a24", "#8a5a2b"] } ] },
+      { c: "Silver", img: "p/berlin-mask-silver.jpg", gallery: ["p/berlin-mask-silver.jpg", "p/berlin-mask-silver-45.jpg"], stock: 1, sw: ["#d8dadc", "#a9adb1"] },
+      { c: "Brown",  img: "p/berlin-mask-brown.jpg", gallery: ["p/berlin-mask-brown.jpg", "p/berlin-mask-brown-45.jpg"],  stock: 0, sw: ["#7a4a24", "#8a5a2b"] } ] },
   { id: "square-milan",   name: "Square Milan",   price: 33.90, colors: [
-      { c: "Black",    img: "p/square-milan-black.jpg",    stock: 1, sw: ["#111111", "#3a3a3a"] },
-      { c: "Tortoise", img: "p/square-milan-tortoise.jpg", stock: 0, sw: ["#5a2a12", "#7a4a2a"] },
-      { c: "Brown",    img: "p/square-milan-brown.jpg",    stock: 0, sw: ["#a4542a", "#3a3a3a"] } ] },
+      { c: "Black",    img: "p/square-milan-black.jpg", gallery: ["p/square-milan-black.jpg", "p/square-milan-black-45.jpg", "p/square-milan-black-back.jpg"],    stock: 1, sw: ["#111111", "#3a3a3a"] },
+      { c: "Tortoise", img: "p/square-milan-tortoise.jpg", gallery: ["p/square-milan-tortoise.jpg", "p/square-milan-tortoise-45.jpg", "p/square-milan-tortoise-back.jpg"], stock: 0, sw: ["#5a2a12", "#7a4a2a"] },
+      { c: "Brown",    img: "p/square-milan-brown.jpg", gallery: ["p/square-milan-brown.jpg", "p/square-milan-brown-45.jpg", "p/square-milan-brown-back.jpg"],    stock: 0, sw: ["#a4542a", "#3a3a3a"] } ] },
   { id: "jewi-square",    name: "Jewi Square",    price: 33.90, colors: [
-      { c: "Black",             img: "p/jewi-square-black.jpg",    stock: 1, sw: ["#121212", "#3a3a3a"] },
+      { c: "Black",             img: "p/jewi-square-black.jpg", gallery: ["p/jewi-square-black.jpg", "p/jewi-square-black-45.jpg", "p/jewi-square-black-back.jpg"],    stock: 1, sw: ["#121212", "#3a3a3a"] },
       { c: "Tortoise",          img: "p/jewi-square-tortoise.jpg", stock: 0, sw: ["#5a2a12", "#8a5a2b"] },
-      { c: "Transparent Blue",  img: "p/jewi-square-blue.jpg",     stock: 1, sw: ["#7fa8d6", "#3d4540"] },
-      { c: "Transparent Pink",  img: "p/jewi-square-pink.jpg",     stock: 1, sw: ["#f2b8c6", "#f3a3b8"] } ] },
+      { c: "Transparent Blue",  img: "p/jewi-square-blue.jpg", gallery: ["p/jewi-square-blue.jpg", "p/jewi-square-blue-45.jpg", "p/jewi-square-blue-back.jpg"],     stock: 1, sw: ["#7fa8d6", "#3d4540"] },
+      { c: "Transparent Pink",  img: "p/jewi-square-pink.jpg", gallery: ["p/jewi-square-pink.jpg", "p/jewi-square-pink-45.jpg"],     stock: 1, sw: ["#f2b8c6", "#f3a3b8"] } ] },
   { id: "alien-berlin",   name: "Alien Berlin",   price: 39.90, colors: [{ c: null, img: "p/alien-berlin.jpg", stock: 1 }] },
   { id: "bones-2",        name: "Bones 2",        price: 33.90, colors: [{ c: null, img: "p/bones-2.jpg", stock: 1 }] },
   { id: "bruxelles-base", name: "Bruxelles Base", price: 22.90, was: 29.90, colors: [{ c: null, img: "p/bruxelles-base.jpg", stock: 1 }] },
@@ -91,18 +91,21 @@ function closeMenu(){ document.getElementById("drawer").classList.remove("open")
 
 /* ---------- CATALOGO (home) ---------- */
 function firstAvail(p){ for (var k=0;k<p.colors.length;k++) if (p.colors[k].stock > 0) return k; return 0; }
-function cardHTML(p){
-  var ci = firstAvail(p), v = p.colors[ci], h = "";
+function thumbHTML(p, ci){
+  var v = p.colors[ci], h = "";
   var fitb = p.fit ? '<button type="button" class="fitbtn" aria-label="'+T("fit.aria")+'">Fit</button>' : '';
   if (v.gallery && v.gallery.length > 1) {
     h += '<div class="thumb gal"><div class="gal-track">';
     v.gallery.forEach(function(src, k){ h += '<img src="'+src+'" alt="'+itemName(p, ci)+' '+(k+1)+'/'+v.gallery.length+'" loading="lazy" draggable="false">'; });
     h += '</div><div class="gal-dots">';
     v.gallery.forEach(function(src, k){ h += '<button type="button" class="'+(k===0?'on':'')+'" data-k="'+k+'" aria-label="'+(k+1)+'/'+v.gallery.length+'"></button>'; });
-    h += '</div>' + fitb + '</div>';
-  } else {
-    h += '<div class="thumb"><img src="'+v.img+'" alt="'+itemName(p, ci)+'" loading="lazy">' + fitb + '</div>';
+    return h + '</div>' + fitb + '</div>';
   }
+  return '<div class="thumb"><img src="'+v.img+'" alt="'+itemName(p, ci)+'" loading="lazy">' + fitb + '</div>';
+}
+function cardHTML(p){
+  var ci = firstAvail(p), v = p.colors[ci], h = "";
+  h += thumbHTML(p, ci);
   if (p.colors.length > 1) {
     h += '<div class="swatches">';
     p.colors.forEach(function(x, k){
@@ -119,7 +122,7 @@ function cardHTML(p){
 }
 function setColor(card, p, ci){
   var v = p.colors[ci]; card.setAttribute("data-ci", ci); card.classList.remove("fit-on");
-  var img = card.querySelector(".thumb img"); img.src = v.img; img.alt = itemName(p, ci);
+  var th = card.querySelector(".thumb"); th.insertAdjacentHTML("afterend", thumbHTML(p, ci)); th.parentNode.removeChild(th);
   card.querySelectorAll(".sw").forEach(function(s){ s.classList.toggle("on", +s.getAttribute("data-ci")===ci); });
   var cn = card.querySelector(".cname"); if (cn) cn.textContent = v.c;
   var fb = card.querySelector(".fitbtn"); if (fb) fb.classList.remove("on");
