@@ -3,7 +3,7 @@
 /* ====== DA COMPILARE ====== */
 // Client ID "Live" dell'app REST PayPal (developer.paypal.com > Apps & Credentials). \u00C8 pubblico: si pu\u00F2 mettere qui.
 // NON inserire mai il "Secret".
-var PAYPAL = { clientId: "Ae2LPyAlxgUn3PJZfyAwYVsBwMZPGYbpwoxs5gL36o4RRGqJjtVcZihbSmNdMq2zvoap8NKodMxvpkzI", currency: "EUR" };
+var PAYPAL = { clientId: "BAAiBf5ThQSY0YJyS9Ze5pBfLH4M0Hcji7vmgEZtK2K6RVQ5OZHQsBo20iqkDR_EgowwY2JgwWs9LBAtvw", currency: "EUR" };
 
 // Catalogo. price = prezzo attuale in euro; was = prezzo d'origine (barrato), facoltativo.
 // colors = colorazioni: c = nome colore (in inglese), img = foto, stock = pezzi disponibili, sw = [colore montatura, colore lente] per il pallino.
