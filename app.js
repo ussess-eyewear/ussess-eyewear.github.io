@@ -50,6 +50,16 @@ var PRODUCTS = [
   { id: "tokyo-wide",     name: "Tokyo Wide",     price: 39.90, colors: [
       { c: "Black / Grey",  img: "p/tokyowide-black.jpg", gallery: ["p/tokyowide-black.jpg", "p/tokyowide-black-45.jpg"], stock: 1, sw: ["#141414", "#3a3a3a"] },
       { c: "Black / Brown", img: "p/tokyowide-brown.jpg", gallery: ["p/tokyowide-brown.jpg", "p/tokyowide-brown-45.jpg"], stock: 1, sw: ["#141414", "#9a5a2a"] } ] },
+  { id: "brixton-main",   name: "Brixton Main",   price: 29.90, colors: [
+      { c: "Black", img: "p/brixtonmain-black.jpg", gallery: ["p/brixtonmain-black.jpg", "p/brixtonmain-black-45.jpg"], stock: 1, sw: ["#111111", "#3a3a3a"] },
+      { c: "Brown", img: "p/brixtonmain-brown.jpg", gallery: ["p/brixtonmain-brown.jpg", "p/brixtonmain-brown-45.jpg"], stock: 1, sw: ["#5e5250", "#a0703e"] } ] },
+  { id: "venice-x",       name: "Venice X",       price: 29.90, colors: [
+      { c: "Black", img: "p/venicex-black.jpg", gallery: ["p/venicex-black.jpg", "p/venicex-black-45.jpg"], stock: 1, sw: ["#111111", "#3a3a3a"] },
+      { c: "Brown", img: "p/venicex-brown.jpg", gallery: ["p/venicex-brown.jpg", "p/venicex-brown-45.jpg"], stock: 1, sw: ["#9a4a1e", "#4a5a44"] } ] },
+  { id: "wien",           name: "Wien",           price: 29.90, colors: [
+      { c: "Black",         img: "p/wien-black.jpg",  gallery: ["p/wien-black.jpg", "p/wien-black-45.jpg"],   stock: 1, sw: ["#141414", "#3a3d44"] },
+      { c: "Purple / Pink", img: "p/wien-purple.jpg", gallery: ["p/wien-purple.jpg", "p/wien-purple-45.jpg"], stock: 1, sw: ["#b49ae6", "#f4a6d0"] },
+      { c: "Grey / Clear",  img: "p/wien-clear.jpg",  gallery: ["p/wien-clear.jpg", "p/wien-clear-45.jpg"],   stock: 1, sw: ["#6b6d70", "#e8e8e4"] } ] },
   { id: "alien-berlin",   name: "Alien Berlin",   price: 39.90, colors: [{ c: null, img: "p/alien-berlin.jpg", stock: 1 }] },
   { id: "bones-2",        name: "Bones 2",        price: 33.90, colors: [{ c: null, img: "p/bones-2.jpg", stock: 1 }] },
   { id: "bruxelles-base", name: "Bruxelles Base", price: 22.90, was: 29.90, colors: [{ c: null, img: "p/bruxelles-base.jpg", stock: 1 }] },
@@ -220,7 +230,7 @@ function famOf(p, v){
   if (/black/.test(n)) return "black"; if (/silver|grey|gray|gunmetal/.test(n)) return "silver";
   if (/brown|tortoise|caramel|coffee/.test(n)) return "brown"; if (/blue/.test(n)) return "blue";
   if (/green|olive|aqua/.test(n)) return "green"; if (/gold/.test(n)) return "gold"; if (/red/.test(n)) return "red";
-  if (/orange/.test(n)) return "orange"; if (/pink/.test(n)) return "pink"; if (/cream|sand|white|beige/.test(n)) return "cream";
+  if (/orange/.test(n)) return "orange"; if (/pink|purple|lilac/.test(n)) return "pink"; if (/cream|sand|white|beige/.test(n)) return "cream";
   return null;
 }
 function bucketOf(x){ return x < 25 ? "p1" : (x <= 30 ? "p2" : "p3"); }
