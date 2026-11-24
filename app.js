@@ -54,13 +54,19 @@ var PRODUCTS = [
       { c: "Black", img: "p/brixtonmain-black.jpg", gallery: ["p/brixtonmain-black.jpg", "p/brixtonmain-black-45.jpg"], stock: 1, sw: ["#111111", "#3a3a3a"] },
       { c: "Brown", img: "p/brixtonmain-brown.jpg", gallery: ["p/brixtonmain-brown.jpg", "p/brixtonmain-brown-45.jpg"], stock: 1, sw: ["#5e5250", "#a0703e"] } ] },
   { id: "venice-x",       name: "Venice X",       price: 29.90, colors: [
-      { c: "Black / Orange Mirror", img: "p/venicex-orange-45.jpg", stock: 1, sw: ["#111111", "#f07a3a"] },
-      { c: "Pink",                  img: "p/venicex-pink-45.jpg",   stock: 1, sw: ["#ec3d8c", "#3f4a40"] },
-      { c: "Black",                 img: "p/venicex-black-45.jpg",  stock: 1, sw: ["#111111", "#3a3a3a"] } ] },
+      { c: "Black / Yellow Lens", img: "p/venicex-yellow.jpg",       stock: 3, sw: ["#111111", "#f2b53a"] },
+      { c: "Red",                 img: "p/venicex-red.jpg",          stock: 3, sw: ["#e8321e", "#ff4a2a"] },
+      { c: "Black / Brown Lens",  img: "p/venicex-brown.jpg",        stock: 2, sw: ["#111111", "#7a4214"] },
+      { c: "Black / Light Lens",  img: "p/venicex-light.jpg",        stock: 2, sw: ["#111111", "#c08c62"] },
+      { c: "Maculate",            img: "p/venicex-maculate.jpg",     stock: 1, sw: ["#6b3a14", "#c46a22"] },
+      { c: "Dark Maculate",       img: "p/venicex-darkmaculate.jpg", stock: 3, sw: ["#2a1608", "#7a4214"] } ] },
   { id: "wien",           name: "Wien",           price: 29.90, colors: [
       { c: "Black",         img: "p/wien-black.jpg",  gallery: ["p/wien-black.jpg", "p/wien-black-45.jpg"],   stock: 1, sw: ["#141414", "#3a3d44"] },
       { c: "Purple / Pink", img: "p/wien-purple.jpg", gallery: ["p/wien-purple.jpg", "p/wien-purple-45.jpg"], stock: 1, sw: ["#b49ae6", "#f4a6d0"] },
       { c: "Grey / Clear",  img: "p/wien-clear.jpg",  gallery: ["p/wien-clear.jpg", "p/wien-clear-45.jpg"],   stock: 1, sw: ["#6b6d70", "#e8e8e4"] } ] },
+  { id: "virginia-x",     name: "Virginia X",     price: 33.90, colors: [
+      { c: "Silver / Clear", img: "p/virginiax-clear.jpg", stock: 1, sw: ["#c9c9c6", "#eef0f0"] },
+      { c: "Silver / Pink",  img: "p/virginiax-pink.jpg",  stock: 0, sw: ["#c9c9c6", "#f2b8c6"] } ] },
   { id: "alien-berlin",   name: "Alien Berlin",   price: 39.90, colors: [{ c: null, img: "p/alien-berlin.jpg", stock: 1 }] },
   { id: "bones-2",        name: "Bones 2",        price: 33.90, colors: [{ c: null, img: "p/bones-2.jpg", stock: 1 }] },
   { id: "bruxelles-base", name: "Bruxelles Base", price: 22.90, was: 29.90, colors: [{ c: null, img: "p/bruxelles-base.jpg", stock: 1 }] },
@@ -229,7 +235,7 @@ function famOf(p, v){
   if (!v.c) return TONE[p.id] || null;
   var n = v.c.split("/")[0].toLowerCase();
   if (/black/.test(n)) return "black"; if (/silver|grey|gray|gunmetal/.test(n)) return "silver";
-  if (/brown|tortoise|caramel|coffee/.test(n)) return "brown"; if (/blue/.test(n)) return "blue";
+  if (/brown|tortoise|caramel|coffee|maculate/.test(n)) return "brown"; if (/blue/.test(n)) return "blue";
   if (/green|olive|aqua/.test(n)) return "green"; if (/gold/.test(n)) return "gold"; if (/red/.test(n)) return "red";
   if (/orange/.test(n)) return "orange"; if (/pink|purple|lilac/.test(n)) return "pink"; if (/cream|sand|white|beige/.test(n)) return "cream";
   return null;
@@ -502,13 +508,18 @@ var TAGS = {
   "04": [{ id: "square-milan", ci: 2, x: 20, y: 46 }],
   "05": [{ id: "square-milan", ci: 2, x: 78, y: 80 }],
   "06": [{ id: "square-milan", ci: 2, x: 70, y: 24 }],
+  "07": [{ id: "virginia-x",   ci: 0, x: 24, y: 84 }],
   "08": [{ id: "square-milan", ci: 2, x: 78, y: 22 }],
   "09": [{ id: "square-milan", ci: 2, x: 72, y: 88 }],
-  "12": [{ id: "wien",         ci: 2, x: 22, y: 90 }],
+  "10": [{ id: "virginia-x",   ci: 0, x: 82, y: 86 }],
+  "12": [{ id: "wien",         ci: 2, x: 22, y: 90 }, { id: "virginia-x", ci: 0, x: 80, y: 92 }],
   "13": [{ id: "venice-x",     ci: 0, x: 74, y: 88 }],
-  "14": [{ id: "venice-x",     ci: 1, x: 72, y: 90 }]
+  "14": [{ id: "venice-x",     ci: 1, x: 72, y: 90 }],
+  "15": [{ id: "venice-x",     ci: 0, x: 86, y: 86 }],
+  "16": [{ id: "venice-x",     ci: 0, x: 76, y: 90 }],
+  "17": [{ id: "virginia-x",   ci: 0, x: 82, y: 82 }]
 };
-var LB_IDS = ["brixton-main", "square-milan", "venice-x", "wien"];
+var LB_IDS = ["brixton-main", "square-milan", "venice-x", "wien", "virginia-x"];
 function pdURL(id, ci){ return "product.html?id=" + encodeURIComponent(id) + (ci ? "&c=" + ci : ""); }
 var ARROW = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3l14 7.5-6.2 1.6L10 19z"/></svg>';
 function tagFigures(root){
