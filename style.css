@@ -147,7 +147,7 @@ textarea{min-height:90px; resize:vertical;}
 .pay{margin-top:26px; display:flex; flex-direction:column; gap:12px;}
 #paypal-buttons{min-height:10px; background:transparent; color-scheme:light;}
 #paypal-buttons iframe{color-scheme:light; background:transparent;}
-.pay-note{color:var(--muted); font-size:13px; text-align:center; margin:0;}
+.pay-note,.page .pay-note{color:var(--muted); font-size:13px; text-align:center; margin:0; max-width:none;}
 .empty{padding:50px 0; text-align:center; color:var(--muted);}
 .empty a{color:var(--fg); text-decoration:underline;}
 .steps{border:1px solid var(--line); border-radius:4px; padding:20px; margin-top:20px; background:var(--surface);}
