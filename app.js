@@ -602,4 +602,6 @@ function lookbook(){
   });
 }
 
-document.addEventListener("DOMContentLoaded", function(){ tagFigures(document); renderProduct(); lookbook(); });
+document.addEventListener("DOMContentLoaded", function(){ tagFigures(document); renderProduct(); lookbook();
+  if (/[?&]all=1/.test(location.search)) { var mb = document.getElementById("moreBtn"), g = document.getElementById("grid");
+    if (mb && g && g.classList.contains("collapsed")) mb.click(); var s = document.getElementById("shop"); if (s) setTimeout(function(){ s.scrollIntoView(); }, 50); } });
