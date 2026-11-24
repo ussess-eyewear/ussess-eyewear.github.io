@@ -25,6 +25,24 @@ var PRODUCTS = [
       { c: "Tortoise",          img: "p/jewi-square-tortoise.jpg", stock: 0, sw: ["#5a2a12", "#8a5a2b"] },
       { c: "Transparent Blue",  img: "p/jewi-square-blue.jpg", gallery: ["p/jewi-square-blue.jpg", "p/jewi-square-blue-45.jpg", "p/jewi-square-blue-back.jpg"],     stock: 1, sw: ["#7fa8d6", "#3d4540"] },
       { c: "Transparent Pink",  img: "p/jewi-square-pink.jpg", gallery: ["p/jewi-square-pink.jpg", "p/jewi-square-pink-45.jpg"],     stock: 1, sw: ["#f2b8c6", "#f3a3b8"] } ] },
+  { id: "zurich",         name: "Zurich",         price: 29.90, colors: [
+      { c: "Black",             img: "p/zurich-black.jpg",        gallery: ["p/zurich-black.jpg", "p/zurich-black-45.jpg", "p/zurich-black-back.jpg"], stock: 1, sw: ["#141414", "#3a3a3a"] },
+      { c: "Black / Clear",     img: "p/zurich-black-clear.jpg",  gallery: ["p/zurich-black-clear.jpg", "p/zurich-black-clear-45.jpg"], stock: 1, sw: ["#141414", "#e6e0d6"] },
+      { c: "Olive",             img: "p/zurich-green.jpg",        gallery: ["p/zurich-green.jpg", "p/zurich-green-45.jpg"], stock: 1, sw: ["#5f5a3a", "#3a3a3a"] },
+      { c: "Silver / Clear",    img: "p/zurich-silver-clear.jpg", gallery: ["p/zurich-silver-clear.jpg", "p/zurich-silver-clear-45.jpg"], stock: 1, sw: ["#d4d6d8", "#e6e0d6"] } ] },
+  { id: "spidey",         name: "Spidey",         price: 29.90, colors: [
+      { c: "Black",        img: "p/spidey-black.jpg", gallery: ["p/spidey-black.jpg", "p/spidey-black-45.jpg", "p/spidey-black-side.jpg"], stock: 1, sw: ["#111111", "#3a3a3a"] },
+      { c: "Sand",         img: "p/spidey-sand.jpg",  gallery: ["p/spidey-sand.jpg", "p/spidey-sand-45.jpg"],  stock: 1, sw: ["#cfccc3", "#e4e1da"] },
+      { c: "Petrol Green", img: "p/spidey-green.jpg", gallery: ["p/spidey-green.jpg", "p/spidey-green-45.jpg"], stock: 1, sw: ["#5a7a2e", "#3a3a3a"] },
+      { c: "Cream",        img: "p/spidey-cream.jpg", gallery: ["p/spidey-cream.jpg", "p/spidey-cream-45.jpg"], stock: 1, sw: ["#efe6cf", "#d9a99a"] } ] },
+  { id: "undulance",      name: "Undulance",      price: 29.90, colors: [
+      { c: "Black",         img: "p/undulance-black.jpg",       gallery: ["p/undulance-black.jpg", "p/undulance-black-45.jpg"],       stock: 1, sw: ["#111111", "#3a3a3a"] },
+      { c: "Black / Brown", img: "p/undulance-black-brown.jpg", gallery: ["p/undulance-black-brown.jpg", "p/undulance-black-brown-45.jpg"], stock: 1, sw: ["#111111", "#7a4a24"] },
+      { c: "Orange",        img: "p/undulance-orange.jpg",      gallery: ["p/undulance-orange.jpg", "p/undulance-orange-45.jpg"],      stock: 1, sw: ["#c2521c", "#3f5a45"] } ] },
+  { id: "ow-square-miami", name: "OW Square Miami", price: 29.90, colors: [
+      { c: "Black",  img: "p/owmiami-black.jpg", gallery: ["p/owmiami-black.jpg", "p/owmiami-black-45.jpg"], stock: 1, sw: ["#141414", "#3a3a3a"] },
+      { c: "Blue",   img: "p/owmiami-blue.jpg",  gallery: ["p/owmiami-blue.jpg", "p/owmiami-blue-45.jpg"],  stock: 1, sw: ["#1f8fe0", "#3d5ea8"] },
+      { c: "Silver", img: "p/owmiami-silver-mirror.jpg", gallery: ["p/owmiami-silver-mirror.jpg", "p/owmiami-silver-mirror-45.jpg", "p/owmiami-silver-mirror-back.jpg"], stock: 1, sw: ["#d4d6d8", "#b9bcc0"] } ] },
   { id: "alien-berlin",   name: "Alien Berlin",   price: 39.90, colors: [{ c: null, img: "p/alien-berlin.jpg", stock: 1 }] },
   { id: "bones-2",        name: "Bones 2",        price: 33.90, colors: [{ c: null, img: "p/bones-2.jpg", stock: 1 }] },
   { id: "bruxelles-base", name: "Bruxelles Base", price: 22.90, was: 29.90, colors: [{ c: null, img: "p/bruxelles-base.jpg", stock: 1 }] },
