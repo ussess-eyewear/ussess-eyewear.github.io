@@ -173,7 +173,6 @@ function renderCatalog(){
   grid.appendChild(more);
   var all = grid.querySelectorAll(".card"), last = all[all.length-1], n = all.length;
   if (n > VISIBLE && n % 3 === 1) last.classList.add("solo");
-  document.getElementById("count").textContent = T("home.models", { n: PRODUCTS.length });
   grid.addEventListener("scroll", function(e){
     var tr = e.target; if (!tr.classList || !tr.classList.contains("gal-track")) return;
     var k = Math.round(tr.scrollLeft / tr.clientWidth);
@@ -206,6 +205,96 @@ function renderCatalog(){
     var open = more.hidden; more.hidden = !open; grid.classList.toggle("collapsed", !open);
     btn.textContent = open ? "\u2212" : "+"; lbl.textContent = open ? T("home.showLess") : T("home.showAll");
   });
+  initFilters(grid, more);
+}
+
+/* ---------- FILTRI CATALOGO ---------- */
+// Famiglia colore dei modelli con un solo colore (c: null). Per i modelli con più colori si ricava dal nome del colore.
+var TONE = { "milan-xl": "brown", "alien-berlin": "black", "bones-2": "silver", "bruxelles-base": "black",
+             "berlin-base": "black", "tron": "silver", "disco-cycle": "black", "london-rider": "black" };
+var FAMS = [["black","#141414"],["silver","#c9cbce"],["brown","#6b3f1f"],["blue","#1f6fd0"],["green","#4f6b3a"],
+            ["gold","#c8a96b"],["red","#b3121c"],["orange","#c2521c"],["pink","#f2b8c6"],["cream","#efe6cf"]];
+function famOf(p, v){
+  if (!v.c) return TONE[p.id] || null;
+  var n = v.c.split("/")[0].toLowerCase();
+  if (/black/.test(n)) return "black"; if (/silver|grey|gray|gunmetal/.test(n)) return "silver";
+  if (/brown|tortoise|caramel|coffee/.test(n)) return "brown"; if (/blue/.test(n)) return "blue";
+  if (/green|olive|aqua/.test(n)) return "green"; if (/gold/.test(n)) return "gold"; if (/red/.test(n)) return "red";
+  if (/orange/.test(n)) return "orange"; if (/pink/.test(n)) return "pink"; if (/cream|sand|white|beige/.test(n)) return "cream";
+  return null;
+}
+function bucketOf(x){ return x < 25 ? "p1" : (x <= 30 ? "p2" : "p3"); }
+var FILT = { sort: "", fam: {}, price: {} };
+function nActive(){ return (FILT.sort ? 1 : 0) + Object.keys(FILT.fam).length + Object.keys(FILT.price).length; }
+function initFilters(grid, more){
+  var fbtn = document.getElementById("fbtn"), panel = document.getElementById("fpanel"); if (!fbtn || !panel) return;
+  var cards = [].slice.call(grid.querySelectorAll(".card")), wrap = document.querySelector(".more-wrap");
+  var fams = {}, bks = {};
+  PRODUCTS.forEach(function(p){ bks[bucketOf(p.price)] = 1; p.colors.forEach(function(v){ var f = famOf(p, v); if (f) fams[f] = 1; }); });
+  function chip(group, val, label, dot){ return '<button type="button" class="chip" data-g="'+group+'" data-v="'+val+'">' +
+    (dot ? '<i style="background:'+dot+'"></i>' : '') + label + '</button>'; }
+  var h = '<div class="fgroup"><span class="flabel">'+T("f.sort")+'</span><div class="chips">' +
+    chip("sort", "", T("f.featured")) + chip("sort", "asc", T("f.priceAsc")) + chip("sort", "desc", T("f.priceDesc")) + '</div></div>';
+  h += '<div class="fgroup"><span class="flabel">'+T("f.color")+'</span><div class="chips">';
+  FAMS.forEach(function(f){ if (fams[f[0]]) h += chip("fam", f[0], T("c."+f[0]), f[1]); });
+  h += '</div></div><div class="fgroup"><span class="flabel">'+T("f.price")+'</span><div class="chips">';
+  ["p1","p2","p3"].forEach(function(b){ if (bks[b]) h += chip("price", b, T("f."+b)); });
+  h += '</div></div><div class="ffoot"><span id="fres"></span><button type="button" class="freset" id="freset">'+T("f.reset")+'</button></div>';
+  panel.innerHTML = h;
+  var empty = document.createElement("p"); empty.className = "fempty"; empty.hidden = true; empty.textContent = T("f.none");
+  grid.parentNode.insertBefore(empty, grid.nextSibling);
+
+  function open(on){ panel.hidden = !on; fbtn.setAttribute("aria-expanded", on ? "true" : "false"); fbtn.classList.toggle("open", on); }
+  fbtn.addEventListener("click", function(){ open(panel.hidden); });
+  document.addEventListener("keydown", function(e){ if (e.key === "Escape" && !panel.hidden) open(false); });
+  panel.addEventListener("click", function(e){
+    if (e.target.closest("#freset")) { FILT = { sort: "", fam: {}, price: {} }; apply(); return; }
+    var c = e.target.closest(".chip"); if (!c) return;
+    var g = c.getAttribute("data-g"), v = c.getAttribute("data-v");
+    if (g === "sort") FILT.sort = v;
+    else { if (FILT[g][v]) delete FILT[g][v]; else FILT[g][v] = 1; }
+    apply();
+  });
+
+  function setSolo(list){
+    cards.forEach(function(c){ c.classList.remove("solo"); });
+    var n = list.length; if (n > 1 && n % 3 === 1) list[n-1].classList.add("solo");
+  }
+  function apply(){
+    panel.querySelectorAll(".chip").forEach(function(c){
+      var g = c.getAttribute("data-g"), v = c.getAttribute("data-v");
+      c.classList.toggle("on", g === "sort" ? FILT.sort === v : !!FILT[g][v]);
+    });
+    var famOn = Object.keys(FILT.fam).length, priceOn = Object.keys(FILT.price).length, n = nActive();
+    var fc = document.getElementById("fcount"); fc.hidden = !n; fc.textContent = n;
+    if (!n) {   // nessun filtro: catalogo come all'inizio (3 modelli + "Mostra tutto")
+      cards.forEach(function(c, i){ c.hidden = false; (i < VISIBLE ? grid : more).appendChild(c); });
+      grid.appendChild(more); grid.classList.toggle("collapsed", more.hidden);
+      if (wrap) wrap.hidden = PRODUCTS.length <= VISIBLE; empty.hidden = true;
+      setSolo(cards);
+      document.getElementById("fres").textContent = T("home.models", { n: PRODUCTS.length });
+      return;
+    }
+    var list = cards.filter(function(c){
+      var p = product(c.getAttribute("data-id"));
+      if (priceOn && !FILT.price[bucketOf(p.price)]) return false;
+      if (famOn && !p.colors.some(function(v){ return FILT.fam[famOf(p, v)]; })) return false;
+      return true;
+    });
+    if (FILT.sort) list.sort(function(a, b){ var d = product(a.getAttribute("data-id")).price - product(b.getAttribute("data-id")).price;
+      return FILT.sort === "asc" ? d : -d; });
+    cards.forEach(function(c){ c.hidden = list.indexOf(c) < 0; grid.insertBefore(c, more); });
+    list.forEach(function(c){ grid.insertBefore(c, more); });
+    grid.classList.remove("collapsed"); if (wrap) wrap.hidden = true;
+    if (famOn) list.forEach(function(c){   // mostra il colore filtrato (meglio se disponibile)
+      var p = product(c.getAttribute("data-id")), cur = +c.getAttribute("data-ci"), best = -1;
+      p.colors.forEach(function(v, k){ if (FILT.fam[famOf(p, v)] && (best < 0 || (p.colors[best].stock <= 0 && v.stock > 0))) best = k; });
+      if (best >= 0 && best !== cur && !(FILT.fam[famOf(p, p.colors[cur])] && p.colors[cur].stock > 0)) setColor(c, p, best);
+    });
+    setSolo(list); empty.hidden = list.length > 0;
+    document.getElementById("fres").textContent = T("home.models", { n: list.length });
+  }
+  apply();
 }
 
 /* banda loghi in movimento */
