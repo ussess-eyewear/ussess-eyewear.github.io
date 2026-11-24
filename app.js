@@ -47,6 +47,9 @@ var PRODUCTS = [
       { c: "Black",  img: "p/roundmiami-black.jpg", gallery: ["p/roundmiami-black.jpg", "p/roundmiami-black-45.jpg", "p/roundmiami-black-back.jpg"], stock: 1, sw: ["#141414", "#3a3a3a"] },
       { c: "Blue",   img: "p/roundmiami-blue.jpg",  gallery: ["p/roundmiami-blue.jpg", "p/roundmiami-blue-45.jpg"],  stock: 1, sw: ["#1f8fe0", "#3d5ea8"] },
       { c: "Silver", img: "p/roundmiami-silver-mirror.jpg", gallery: ["p/roundmiami-silver-mirror.jpg", "p/roundmiami-silver-mirror-45.jpg"], stock: 1, sw: ["#d4d6d8", "#b9bcc0"] } ] },
+  { id: "tokyo-wide",     name: "Tokyo Wide",     price: 39.90, colors: [
+      { c: "Black / Grey",  img: "p/tokyowide-black.jpg", gallery: ["p/tokyowide-black.jpg", "p/tokyowide-black-45.jpg"], stock: 1, sw: ["#141414", "#3a3a3a"] },
+      { c: "Black / Brown", img: "p/tokyowide-brown.jpg", gallery: ["p/tokyowide-brown.jpg", "p/tokyowide-brown-45.jpg"], stock: 1, sw: ["#141414", "#9a5a2a"] } ] },
   { id: "alien-berlin",   name: "Alien Berlin",   price: 39.90, colors: [{ c: null, img: "p/alien-berlin.jpg", stock: 1 }] },
   { id: "bones-2",        name: "Bones 2",        price: 33.90, colors: [{ c: null, img: "p/bones-2.jpg", stock: 1 }] },
   { id: "bruxelles-base", name: "Bruxelles Base", price: 22.90, was: 29.90, colors: [{ c: null, img: "p/bruxelles-base.jpg", stock: 1 }] },
