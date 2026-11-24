@@ -248,3 +248,32 @@ textarea{min-height:90px; resize:vertical;}
 .ffoot{display:flex; align-items:center; justify-content:space-between; border-top:1px solid var(--line); padding-top:14px; color:var(--muted); font-size:12px; letter-spacing:1px;}
 .freset{background:none; border:none; color:var(--fg); font-size:11px; letter-spacing:2px; text-transform:uppercase; text-decoration:underline; cursor:pointer; padding:0;}
 .fempty{text-align:center; color:var(--muted); padding:40px 20px 60px; margin:0;}
+
+/* Campaign — Pit Stop */
+.campaign{padding-block:64px 56px; border-top:1px solid var(--line);}
+.camp-head{padding-left:var(--gut-l); padding-right:var(--gut-r); margin-bottom:22px;}
+.camp-kicker{display:block; color:var(--muted); font-size:11px; letter-spacing:3px; text-transform:uppercase;}
+.camp-title{margin:6px 0 2px; font-size:clamp(40px,7vw,88px); line-height:.95; font-weight:700; letter-spacing:-1px; text-transform:uppercase;}
+.camp-by{margin:0; color:var(--muted); font-size:13px; letter-spacing:.5px;}
+.camp-wrap{position:relative;}
+.camp-strip{display:flex; gap:6px; overflow-x:auto; overflow-y:hidden; scroll-snap-type:x proximity; scroll-padding-inline:var(--gut-l); padding-inline:var(--gut-l) var(--gut-r); scrollbar-width:none; -webkit-overflow-scrolling:touch; outline:none;}
+.camp-strip::-webkit-scrollbar{display:none;}
+.camp-strip figure{margin:0; flex:0 0 auto; height:clamp(340px,72vh,760px); scroll-snap-align:start; background:var(--surface);}
+.camp-strip img{display:block; height:100%; width:auto; max-width:none;}
+.camp-nav{display:none; position:absolute; top:50%; transform:translateY(-50%); z-index:2; width:44px; height:44px; border-radius:50%; border:1px solid rgba(255,255,255,.25); background:rgba(13,13,13,.55); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); color:#fff; cursor:pointer; align-items:center; justify-content:center; transition:opacity .2s;}
+.camp-nav svg{width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.6;}
+.camp-nav.prev{left:calc(var(--gut-l) + 10px);} .camp-nav.next{right:calc(var(--gut-r) + 10px);}
+.camp-nav[disabled]{opacity:0; pointer-events:none;}
+@media (hover:hover) and (pointer:fine){.camp-nav{display:flex;}}
+.camp-bar{display:flex; align-items:center; gap:16px; padding:18px var(--gut-r) 0 var(--gut-l);}
+.camp-prog{flex:1; height:1px; background:var(--line); position:relative; overflow:hidden;}
+.camp-prog i{position:absolute; left:0; top:0; bottom:0; width:0; background:var(--fg); transition:width .15s;}
+.camp-count{font-family:var(--display); font-size:12px; letter-spacing:2px; color:var(--muted); font-variant-numeric:tabular-nums;}
+.camp-foot{padding:18px var(--gut-r) 0 var(--gut-l); display:grid; gap:8px; font-size:12px; letter-spacing:.4px; color:var(--muted);}
+.camp-foot p{margin:0;}
+.camp-worn a{color:var(--fg); text-decoration:underline; text-underline-offset:3px;}
+.camp-credits{display:flex; flex-wrap:wrap; gap:4px 22px;}
+.camp-credits a{color:var(--fg); text-decoration:none;} .camp-credits a:hover{text-decoration:underline;}
+@media (max-width:640px){.campaign{padding-block:48px 44px;} .camp-strip figure{height:min(62vh,480px);} .camp-strip{gap:4px;}}
+.card.flash{animation:cflash 1.6s ease;}
+@keyframes cflash{0%,60%{outline:1px solid var(--fg); outline-offset:6px;}100%{outline:1px solid transparent; outline-offset:6px;}}

@@ -11,7 +11,7 @@ var LKEY = "ussess_lang_v1";
 
 var STR = {
   it: {
-    "menu.open": "Apri menu", "menu.close": "Chiudi menu", "nav.shop": "Shop", "nav.cart": "Carrello", "nav.contact": "Contatti", "nav.policy": "Resi e policy",
+    "menu.open": "Apri menu", "menu.close": "Chiudi menu", "nav.shop": "Shop", "nav.cart": "Carrello", "nav.contact": "Contatti", "nav.policy": "Resi e policy", "nav.campaign": "Campagna", "camp.kicker": "Ultima campagna", "camp.worn": "Nella campagna", "camp.prev": "Indietro", "camp.next": "Avanti",
     "foot.returns": "Resi e rimborsi", "foot.shipping": "Spedizioni", "foot.privacy": "Privacy", "foot.terms": "Termini", "foot.rights": "Tutti i diritti riservati",
     "lang.choose": "Lingua",
     "home.catalog": "Catalogo", "home.models": "{n} modelli", "home.showAll": "Mostra tutto", "home.showLess": "Mostra meno", "home.moreAria": "Mostra tutto il catalogo",
@@ -32,7 +32,7 @@ var STR = {
     "title.home": "USSESS Eyewear", "title.cart": "Carrello · USSESS", "title.contact": "Contatti · USSESS", "title.policy": "Resi e policy · USSESS"
   },
   en: {
-    "menu.open": "Open menu", "menu.close": "Close menu", "nav.shop": "Shop", "nav.cart": "Cart", "nav.contact": "Contact", "nav.policy": "Returns & policy",
+    "menu.open": "Open menu", "menu.close": "Close menu", "nav.shop": "Shop", "nav.cart": "Cart", "nav.contact": "Contact", "nav.policy": "Returns & policy", "nav.campaign": "Campaign", "camp.kicker": "Latest campaign", "camp.worn": "Worn in the campaign", "camp.prev": "Previous", "camp.next": "Next",
     "foot.returns": "Returns & refunds", "foot.shipping": "Shipping", "foot.privacy": "Privacy", "foot.terms": "Terms", "foot.rights": "All rights reserved",
     "lang.choose": "Language",
     "home.catalog": "Catalogue", "home.models": "{n} models", "home.showAll": "Show all", "home.showLess": "Show less", "home.moreAria": "Show the full catalogue",
@@ -53,7 +53,7 @@ var STR = {
     "title.home": "USSESS Eyewear", "title.cart": "Cart · USSESS", "title.contact": "Contact · USSESS", "title.policy": "Returns & policy · USSESS"
   },
   nl: {
-    "menu.open": "Menu openen", "menu.close": "Menu sluiten", "nav.shop": "Shop", "nav.cart": "Winkelmand", "nav.contact": "Contact", "nav.policy": "Retour & voorwaarden",
+    "menu.open": "Menu openen", "menu.close": "Menu sluiten", "nav.shop": "Shop", "nav.cart": "Winkelmand", "nav.contact": "Contact", "nav.policy": "Retour & voorwaarden", "nav.campaign": "Campagne", "camp.kicker": "Laatste campagne", "camp.worn": "Gedragen in de campagne", "camp.prev": "Vorige", "camp.next": "Volgende",
     "foot.returns": "Retour & terugbetaling", "foot.shipping": "Verzending", "foot.privacy": "Privacy", "foot.terms": "Voorwaarden", "foot.rights": "Alle rechten voorbehouden",
     "lang.choose": "Taal",
     "home.catalog": "Catalogus", "home.models": "{n} modellen", "home.showAll": "Alles tonen", "home.showLess": "Minder tonen", "home.moreAria": "Toon de volledige catalogus",
@@ -74,7 +74,7 @@ var STR = {
     "title.home": "USSESS Eyewear", "title.cart": "Winkelmand · USSESS", "title.contact": "Contact · USSESS", "title.policy": "Retour & voorwaarden · USSESS"
   },
   fr: {
-    "menu.open": "Ouvrir le menu", "menu.close": "Fermer le menu", "nav.shop": "Shop", "nav.cart": "Panier", "nav.contact": "Contact", "nav.policy": "Retours & conditions",
+    "menu.open": "Ouvrir le menu", "menu.close": "Fermer le menu", "nav.shop": "Shop", "nav.cart": "Panier", "nav.contact": "Contact", "nav.policy": "Retours & conditions", "nav.campaign": "Campagne", "camp.kicker": "Dernière campagne", "camp.worn": "Portés dans la campagne", "camp.prev": "Précédent", "camp.next": "Suivant",
     "foot.returns": "Retours & remboursements", "foot.shipping": "Livraison", "foot.privacy": "Confidentialité", "foot.terms": "Conditions", "foot.rights": "Tous droits réservés",
     "lang.choose": "Langue",
     "home.catalog": "Catalogue", "home.models": "{n} modèles", "home.showAll": "Tout afficher", "home.showLess": "Afficher moins", "home.moreAria": "Afficher tout le catalogue",
@@ -290,7 +290,7 @@ var I18N_MAP = [
   ['.drawer a[href$="#shop"]', "nav.shop"], ['.drawer a[href="cart.html"]', "nav.cart"], ['.drawer a[href="contatti.html"]', "nav.contact"], ['.drawer a[href="policy.html"]', "nav.policy"],
   ['.site-footer a[href="contatti.html"]', "nav.contact"], ['.site-footer a[href$="#resi"]', "foot.returns"], ['.site-footer a[href$="#spedizioni"]', "foot.shipping"],
   ['.site-footer a[href$="#privacy"]', "foot.privacy"], ['.site-footer a[href$="#termini"]', "foot.terms"],
-  ["#shop h2", "home.catalog"], ["#fbtnLabel", "f.filter"], ["#moreLabel", "home.showAll"], ["#moreBtn", "home.moreAria", "aria-label"],
+  ["#shop h2", "home.catalog"], ["#fbtnLabel", "f.filter"], ['.drawer a[href$="#campaign"]', "nav.campaign"], ["#campKicker", "camp.kicker"], ["#campWorn", "camp.worn"], ["#campPrev", "camp.prev", "aria-label"], ["#campNext", "camp.next", "aria-label"], ["#moreLabel", "home.showAll"], ["#moreBtn", "home.moreAria", "aria-label"],
   ['label[for="dest"]', "cart.deliver"], ['#dest option[value="it"]', "cart.italy"], ['#dest option[value="eu"]', "cart.eu"], ["#shipNote", "cart.shipNote"],
   [".copy[onclick]", "contact.copy"], ["a.copy", "contact.open"]
 ];

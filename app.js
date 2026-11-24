@@ -450,3 +450,34 @@ document.addEventListener("DOMContentLoaded", function(){
   updateBadge(); logo3d(); ticker(); renderCatalog(); heroVideo(); renderCart(); cartClicks(); analytics();
   var y = document.getElementById("year"); if (y) y.textContent = new Date().getFullYear();
 });
+
+/* Campaign strip */
+(function(){
+  var s = document.getElementById("campStrip"); if (!s) return;
+  var prev = document.getElementById("campPrev"), next = document.getElementById("campNext"),
+      prog = document.getElementById("campProg"), cnt = document.getElementById("campCount"), figs = s.querySelectorAll("figure");
+  function pad(n){ return (n < 10 ? "0" : "") + n; }
+  function upd(){
+    var max = s.scrollWidth - s.clientWidth, x = s.scrollLeft;
+    prog.style.width = (max > 0 ? Math.max(8, x / max * 100) : 100) + "%";
+    var idx = 0; for (var i = 0; i < figs.length; i++){ if (figs[i].offsetLeft - s.offsetLeft <= x + 40) idx = i; }
+    if (x >= max - 4) idx = figs.length - 1;
+    cnt.textContent = pad(idx + 1) + " / " + pad(figs.length);
+    prev.disabled = x <= 4; next.disabled = x >= max - 4;
+  }
+  function go(d){ s.scrollBy({ left: d * s.clientWidth * 0.8, behavior: "smooth" }); }
+  prev.addEventListener("click", function(){ go(-1); }); next.addEventListener("click", function(){ go(1); });
+  s.addEventListener("keydown", function(e){ if (e.key === "ArrowRight"){ go(1); e.preventDefault(); } if (e.key === "ArrowLeft"){ go(-1); e.preventDefault(); } });
+  s.addEventListener("scroll", upd, { passive: true }); window.addEventListener("resize", upd);
+  s.querySelectorAll("img").forEach(function(im){ im.addEventListener("load", upd); });
+  upd();
+  document.querySelectorAll("[data-goto]").forEach(function(a){
+    a.addEventListener("click", function(e){
+      var card = document.querySelector('.card[data-id="' + a.getAttribute("data-goto") + '"]'); if (!card) return;
+      e.preventDefault();
+      var mb = document.getElementById("moreBtn");
+      if (card.offsetParent === null && mb && mb.offsetParent !== null) mb.click();
+      setTimeout(function(){ card.scrollIntoView({ behavior: "smooth", block: "center" }); card.classList.remove("flash"); void card.offsetWidth; card.classList.add("flash"); }, 60);
+    });
+  });
+})();
