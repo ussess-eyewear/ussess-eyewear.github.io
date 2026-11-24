@@ -297,7 +297,7 @@ function loadSdk(cb){
   if (sdkState === "loading") return;
   sdkState = "loading";
   var s = document.createElement("script");
-  s.src = "https://www.paypal.com/sdk/js?client-id=" + encodeURIComponent(PAYPAL.clientId) + "&currency=" + PAYPAL.currency + "&intent=capture";
+  s.src = "https://www.paypal.com/sdk/js?client-id=" + encodeURIComponent(PAYPAL.clientId) + "&currency=" + PAYPAL.currency + "&intent=capture&locale=" + ({ it: "it_IT", en: "en_GB", nl: "nl_NL", fr: "fr_FR" }[LANG] || "it_IT");
   s.onload = function(){ sdkState = "ready"; if (lastOrder && !lastOrder.missing) renderButtons(lastOrder); };
   s.onerror = function(){ sdkState = "error"; payNote(T("pay.preview")); };
   document.head.appendChild(s);
