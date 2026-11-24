@@ -279,7 +279,7 @@ textarea{min-height:90px; resize:vertical;}
 @keyframes cflash{0%,60%{outline:1px solid var(--fg); outline-offset:6px;}100%{outline:1px solid transparent; outline-offset:6px;}}
 
 /* ===== Instrument Serif (titoli editoriali) ===== */
-:root{--serif:"Instrument Serif","Times New Roman",serif; --dyn:"Archivo","Arial Black",sans-serif;}
+:root{--serif:"Archivo","Helvetica Neue",Arial,sans-serif; --dyn:"Archivo","Arial Black",sans-serif;}
 
 /* ===== Home: anteprima Pit Stop ===== */
 .camp-head{position:relative; pointer-events:none; margin-bottom:calc(-1 * clamp(18px,3vw,44px));}
@@ -430,3 +430,20 @@ textarea{min-height:90px; resize:vertical;}
 .lb-title{font-size:clamp(42px,6vw,96px); line-height:.86;}
 .lb-h2{font-size:26px;} .t-k{font-size:26px;} .pd-name{font-size:clamp(38px,4.2vw,66px); line-height:.9;}
 .lb-row .lb-nm{font-size:17px;} .lb-cell-nm{font-size:14px;} .rb-c span{font-size:11px;}
+
+/* Testi campagna: Archivo sottile e leggermente largo, stessa famiglia dei titoli */
+.lb,.camp-teaser p,.camp-by,.camp-refs a,.pd-desc{font-weight:300; font-stretch:112%; font-variation-settings:"wdth" 112;}
+.camp-by{font-style:italic;} .lb-cap,.lb-txt p,.lb-camp-txt p{letter-spacing:-.01em;}
+.lb-now,.lb-all{font-style:italic;}
+
+/* Lookbook di nuovo su bianco, contorni neri sottili */
+.lb-page{background:#fff;}
+.lb{--paper:#fff; background:#fff; color:#111;}
+.lb-box,.lb-side,.rb-c,.lb-cell{border:1px solid #111;}
+.lb-grid{gap:0;} .lb-cell{margin:0 -1px -1px 0;}
+.lb-txt p,.lb-camp-txt p{color:#333;}
+.lb-meta{color:#777;}
+.lb-credits{color:#777 !important;} .lb-credits a{color:#111;}
+.lb-all{color:#888 !important;} .lb-all:hover{color:#111 !important;}
+/* fondo pagina: footer scuro pieno, così il testo chiaro resta leggibile */
+.lb-page .site-footer{background:var(--bg); color:var(--fg); border-top:0;}
