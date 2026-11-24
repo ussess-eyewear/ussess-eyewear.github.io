@@ -6,8 +6,8 @@
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap">
-<link rel="stylesheet" href="style.css?v=15">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&family=Instrument+Serif:ital@0;1&display=swap">
+<link rel="stylesheet" href="style.css?v=16">
 
 <header class="site-header">
   <button class="ibtn" type="button" aria-label="Apri menu" onclick="openMenu()"><svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
@@ -19,7 +19,7 @@
 <nav class="drawer" id="drawer" aria-label="Menu">
   <button class="close" type="button" onclick="closeMenu()" aria-label="Chiudi menu">&times;</button>
   <a href="#shop" onclick="closeMenu()">Shop</a>
-  <a href="#campaign" onclick="closeMenu()">Campagna</a>
+  <a href="pitstop.html">Campagna</a>
   <a href="cart.html">Carrello</a>
   <a href="contatti.html">Contatti</a>
   <a href="policy.html">Resi e policy</a>
@@ -47,8 +47,8 @@
 <section class="campaign" id="campaign" aria-labelledby="campTitle">
   <div class="camp-head">
     <span class="camp-kicker" id="campKicker">Ultima campagna</span>
-    <h2 class="camp-title display" id="campTitle">Pit Stop</h2>
-    <p class="camp-by">by Gaex Guarin — USSESS Eyewear Campaign</p>
+    <p class="camp-by">by Gaex Guarin — USSESS Eyewear</p>
+    <h2 class="camp-title" id="campTitle">Pit Stop</h2>
   </div>
   <div class="camp-wrap">
     <button class="camp-nav prev" type="button" id="campPrev" aria-label="Indietro"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -71,9 +71,14 @@
     <button class="camp-nav next" type="button" id="campNext" aria-label="Avanti"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
   </div>
   <div class="camp-bar"><span class="camp-prog"><i id="campProg"></i></span><span class="camp-count" id="campCount">01 / 14</span></div>
-  <div class="camp-foot">
-    <p class="camp-worn"><span id="campWorn">Nella campagna</span> — <a href="#shop" data-goto="brixton-main">Brixton Main</a>, <a href="#shop" data-goto="square-milan">Square Milan</a>, <a href="#shop" data-goto="venice-x">Venice X</a>, <a href="#shop" data-goto="wien">Wien</a></p>
-    <p class="camp-credits"><span>Photo <a href="https://instagram.com/gaex.guarin" target="_blank" rel="noopener">@gaex.guarin</a></span><span>Models <a href="https://instagram.com/elenaagallo_" target="_blank" rel="noopener">@elenaagallo_</a> <a href="https://instagram.com/andreaberardescaaa" target="_blank" rel="noopener">@andreaberardescaaa</a></span><span>MUA <a href="https://instagram.com/marios_makeup" target="_blank" rel="noopener">@marios_makeup</a></span><span>Styling <a href="https://instagram.com/peppe_oni_" target="_blank" rel="noopener">@peppe_oni_</a> <a href="https://instagram.com/andreaberardescaaa" target="_blank" rel="noopener">@andreaberardescaaa</a></span></p>
+  <div class="camp-teaser">
+    <div>
+      <h3 class="t-k">Campaign</h3>
+      <p data-t="camp.text"></p>
+      <div class="t-hint" data-t="camp.hover"></div>
+    </div>
+    <a class="disc-btn" href="pitstop.html">Discover more <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    <div class="camp-refs"><span class="rk">Campaign lens references</span><a href="product.html?id=brixton-main">Brixton Main</a> <a href="product.html?id=square-milan">Square Milan</a> <a href="product.html?id=venice-x">Venice X</a> <a href="product.html?id=wien">Wien</a></div>
   </div>
 </section>
 
@@ -88,7 +93,7 @@
   <div class="f-copy">© <span id="year">2026</span> Ussess — Tutti i diritti riservati</div>
 </footer>
 
-<script src="i18n.js?v=14" charset="utf-8"></script>
-<script src="app.js?v=18" charset="utf-8"></script>
+<script src="i18n.js?v=15" charset="utf-8"></script>
+<script src="app.js?v=19" charset="utf-8"></script>
 
 </body></html>

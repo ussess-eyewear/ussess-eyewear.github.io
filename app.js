@@ -54,8 +54,9 @@ var PRODUCTS = [
       { c: "Black", img: "p/brixtonmain-black.jpg", gallery: ["p/brixtonmain-black.jpg", "p/brixtonmain-black-45.jpg"], stock: 1, sw: ["#111111", "#3a3a3a"] },
       { c: "Brown", img: "p/brixtonmain-brown.jpg", gallery: ["p/brixtonmain-brown.jpg", "p/brixtonmain-brown-45.jpg"], stock: 1, sw: ["#5e5250", "#a0703e"] } ] },
   { id: "venice-x",       name: "Venice X",       price: 29.90, colors: [
-      { c: "Black", img: "p/venicex-black.jpg", gallery: ["p/venicex-black.jpg", "p/venicex-black-45.jpg"], stock: 1, sw: ["#111111", "#3a3a3a"] },
-      { c: "Brown", img: "p/venicex-brown.jpg", gallery: ["p/venicex-brown.jpg", "p/venicex-brown-45.jpg"], stock: 1, sw: ["#9a4a1e", "#4a5a44"] } ] },
+      { c: "Black / Orange Mirror", img: "p/venicex-orange-45.jpg", stock: 1, sw: ["#111111", "#f07a3a"] },
+      { c: "Pink",                  img: "p/venicex-pink-45.jpg",   stock: 1, sw: ["#ec3d8c", "#3f4a40"] },
+      { c: "Black",                 img: "p/venicex-black-45.jpg",  stock: 1, sw: ["#111111", "#3a3a3a"] } ] },
   { id: "wien",           name: "Wien",           price: 29.90, colors: [
       { c: "Black",         img: "p/wien-black.jpg",  gallery: ["p/wien-black.jpg", "p/wien-black-45.jpg"],   stock: 1, sw: ["#141414", "#3a3d44"] },
       { c: "Purple / Pink", img: "p/wien-purple.jpg", gallery: ["p/wien-purple.jpg", "p/wien-purple-45.jpg"], stock: 1, sw: ["#b49ae6", "#f4a6d0"] },
@@ -491,3 +492,103 @@ document.addEventListener("DOMContentLoaded", function(){
     });
   });
 })();
+
+/* ---------- PIT STOP: tag "lens references" sulle foto ---------- */
+// Foto della campagna -> occhiale indossato. x/y = posizione del tag in % (lontano dal soggetto). ci = colore.
+var TAGS = {
+  "01": [{ id: "brixton-main", ci: 1, x: 80, y: 70 }],
+  "02": [{ id: "brixton-main", ci: 1, x: 16, y: 80 }],
+  "03": [{ id: "brixton-main", ci: 0, x: 16, y: 74 }],
+  "04": [{ id: "square-milan", ci: 2, x: 20, y: 46 }],
+  "05": [{ id: "square-milan", ci: 2, x: 78, y: 80 }],
+  "06": [{ id: "square-milan", ci: 2, x: 70, y: 24 }],
+  "08": [{ id: "square-milan", ci: 2, x: 78, y: 22 }],
+  "09": [{ id: "square-milan", ci: 2, x: 72, y: 88 }],
+  "12": [{ id: "wien",         ci: 2, x: 22, y: 90 }],
+  "13": [{ id: "venice-x",     ci: 0, x: 74, y: 88 }],
+  "14": [{ id: "venice-x",     ci: 1, x: 72, y: 90 }]
+};
+var LB_IDS = ["brixton-main", "square-milan", "venice-x", "wien"];
+function pdURL(id, ci){ return "product.html?id=" + encodeURIComponent(id) + (ci ? "&c=" + ci : ""); }
+var ARROW = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3l14 7.5-6.2 1.6L10 19z"/></svg>';
+function tagFigures(root){
+  (root || document).querySelectorAll("img[src*='pitstop-']").forEach(function(img){
+    var m = img.getAttribute("src").match(/pitstop-(\d\d)\.jpg/); if (!m || !TAGS[m[1]]) return;
+    var fig = img.parentNode; if (fig.classList.contains("tg")) return;
+    fig.classList.add("tg");
+    TAGS[m[1]].forEach(function(t){
+      var p = product(t.id); if (!p) return;
+      var a = document.createElement("a");
+      a.className = "ptag" + (t.x < 50 ? " flip" : ""); a.href = pdURL(t.id, t.ci);
+      a.style.left = t.x + "%"; a.style.top = t.y + "%";
+      a.innerHTML = '<i class="pt-ar">' + ARROW + '</i><span>' + p.name + '</span>';
+      fig.appendChild(a);
+    });
+    // touch: primo tocco mostra i tag, il secondo (sul tag) apre il prodotto
+    fig.addEventListener("click", function(e){
+      if (e.target.closest(".ptag")) return;
+      if (window.matchMedia("(hover:none)").matches) fig.classList.toggle("show-tags");
+    });
+  });
+}
+
+/* ---------- PAGINA PRODOTTO ---------- */
+function renderProduct(){
+  var root = document.getElementById("pd"); if (!root) return;
+  var q = new URLSearchParams(location.search), p = product(q.get("id"));
+  if (!p) { root.innerHTML = '<p class="pd-miss">' + T("pd.missing") + ' <a href="index.html#shop">Shop</a></p>'; return; }
+  var ci = Math.min(Math.max(+q.get("c") || 0, 0), p.colors.length - 1);
+  document.title = p.name + " · USSESS";
+  var seen = [];
+  Object.keys(TAGS).forEach(function(k){ TAGS[k].forEach(function(t){ if (t.id === p.id && seen.indexOf(k) < 0) seen.push(k); }); });
+  function draw(){
+    var v = p.colors[ci], gal = v.gallery || [v.img], h = "";
+    h += '<div class="pd-gal">' + gal.map(function(s, k){ return '<figure class="pd-img' + (k === 0 ? ' main' : '') + '"><img src="' + s + '" alt="' + itemName(p, ci) + '"' + (k ? ' loading="lazy"' : '') + '></figure>'; }).join("") + '</div>';
+    h += '<aside class="pd-info"><div class="pd-sticky">';
+    h += '<a class="pd-crumb" href="index.html#shop">Shop</a>';
+    h += '<h1 class="pd-name">' + p.name + '</h1>';
+    h += '<div class="pd-price">' + (p.was ? '<s>' + eur(p.was) + '</s> ' : '') + eur(p.price) + '</div>';
+    if (v.c) {
+      h += '<div class="pd-color"><span>' + T("pd.color") + '</span> <b>' + v.c + '</b></div>';
+      if (p.colors.length > 1) h += '<div class="swatches pd-sw">' + p.colors.map(function(x, k){
+        return '<button type="button" class="sw' + (k === ci ? ' on' : '') + (x.stock <= 0 ? ' out' : '') + '" data-ci="' + k + '" aria-label="' + x.c + '" title="' + x.c + '" style="--f:' + x.sw[0] + ';--l:' + x.sw[1] + '"></button>'; }).join("") + '</div>';
+    }
+    var ok = left(p, ci) > 0;
+    if (SHOP_OPEN) h += '<button class="pd-add" type="button"' + (ok ? '' : ' disabled') + '>' + (ok ? T("add.short") + T("add.long") : (v.stock <= 0 ? T("soldout") : T("incart"))) + '</button>';
+    h += '<ul class="pd-notes"><li>' + T("cart.shipNote") + '</li><li>' + T("cart.returns") + '</li></ul>';
+    var d = T("pd." + p.id); if (d !== "pd." + p.id) h += '<p class="pd-desc">' + d + '</p>';
+    if (seen.length) {
+      h += '<div class="pd-seen"><div class="pd-seen-h"><span>Campaign lens references</span><a href="pitstop.html">Pit Stop ↗</a></div><div class="pd-seen-g">' +
+        seen.map(function(k){ return '<a href="pitstop.html"><img src="c/gaex/pitstop-' + k + '.jpg" alt="Pit Stop — ' + p.name + '" loading="lazy"></a>'; }).join("") + '</div></div>';
+    }
+    h += '</div></aside>';
+    root.innerHTML = h;
+  }
+  draw();
+  root.addEventListener("click", function(e){
+    var sw = e.target.closest(".sw");
+    if (sw) { ci = +sw.getAttribute("data-ci"); draw(); history.replaceState(null, "", pdURL(p.id, ci)); return; }
+    var b = e.target.closest(".pd-add");
+    if (b && !b.disabled && addToCart(p.id, ci)) { b.textContent = T("add.done"); b.classList.add("done"); setTimeout(draw, 1400); }
+  });
+}
+
+/* ---------- LOOKBOOK PIT STOP ---------- */
+function lookbook(){
+  var lb = document.getElementById("lb"); if (!lb) return;
+  var vid = document.getElementById("lbVideo");
+  if (vid) {
+    var mob = window.matchMedia("(max-width:700px)").matches;
+    vid.poster = "c/gaex/pitstop-poster-" + (mob ? "v" : "h") + ".jpg";
+    vid.src = "c/gaex/pitstop-" + (mob ? "v" : "h") + ".mp4";
+    var pb = document.getElementById("lbPause");
+    if (pb) pb.addEventListener("click", function(){ if (vid.paused) { vid.play(); pb.classList.remove("off"); } else { vid.pause(); pb.classList.add("off"); } });
+  }
+  lb.querySelectorAll("[data-pid]").forEach(function(el){
+    var p = product(el.getAttribute("data-pid")); if (!p) return;
+    el.querySelectorAll(".lb-go").forEach(function(a){ a.href = pdURL(p.id, +(el.getAttribute("data-ci") || 0)); });
+    var pr = el.querySelector(".lb-pr"); if (pr) pr.textContent = eur(p.price);
+  });
+}
+
+document.addEventListener("DOMContentLoaded", function(){ tagFigures(document); renderProduct(); lookbook(); });
