@@ -282,7 +282,7 @@ textarea{min-height:90px; resize:vertical;}
 :root{--serif:"Archivo","Helvetica Neue",Arial,sans-serif; --dyn:"Archivo","Arial Black",sans-serif;}
 
 /* ===== Home: anteprima Pit Stop ===== */
-.camp-head{position:relative; pointer-events:none; margin-bottom:calc(-1 * clamp(18px,3vw,44px));}
+.camp-head{position:relative; pointer-events:none; margin-bottom:calc(-1 * clamp(15px,2.55vw,37px));}
 .camp-head .camp-kicker,.camp-head .camp-by{pointer-events:auto;}
 .camp-title{font-family:var(--serif); font-weight:400; letter-spacing:-.5px; font-size:clamp(68px,11vw,168px); line-height:.86; margin:10px 0 0; color:#f4f2ec; position:relative; z-index:3; text-shadow:0 2px 24px rgba(0,0,0,.45), 0 0 2px rgba(0,0,0,.25);}
 .camp-by{font-family:var(--serif); font-style:italic; font-size:17px; letter-spacing:.2px; color:var(--muted);}
@@ -426,7 +426,7 @@ textarea{min-height:90px; resize:vertical;}
 
 /* Titoli campagna: bastone extra-largo, nero, corsivo (stile "TO BE ANTWERP") */
 .camp-title,.lb-title,.lb-h2,.t-k,.pd-name,.lb-row .lb-nm,.lb-cell-nm,.rb-c span{font-family:var(--dyn) !important; font-weight:900; font-style:italic; font-stretch:125%; font-variation-settings:"wdth" 125; letter-spacing:-.04em; text-transform:uppercase;}
-.camp-title{font-size:clamp(56px,10vw,150px); line-height:.82;}
+.camp-title{font-size:clamp(48px,8.5vw,128px); line-height:.82;}
 .lb-title{font-size:clamp(42px,6vw,96px); line-height:.86;}
 .lb-h2{font-size:26px;} .t-k{font-size:26px;} .pd-name{font-size:clamp(38px,4.2vw,66px); line-height:.9;}
 .lb-row .lb-nm{font-size:17px;} .lb-cell-nm{font-size:14px;} .rb-c span{font-size:11px;}
