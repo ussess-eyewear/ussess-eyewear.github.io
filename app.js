@@ -27,9 +27,9 @@ var PRODUCTS = [
       { c: "Silver", img: "p/berlin-mask-silver.jpg", gallery: ["p/berlin-mask-silver.jpg", "p/berlin-mask-silver-45.jpg"], stock: 1, sw: ["#d8dadc", "#a9adb1"] },
       { c: "Brown",  img: "p/berlin-mask-brown.jpg", gallery: ["p/berlin-mask-brown.jpg", "p/berlin-mask-brown-45.jpg"],  stock: 0, sw: ["#7a4a24", "#8a5a2b"] } ] },
   { id: "square-milan",   name: "Square Milan",   price: 33.90, colors: [
-      { c: "Black",    img: "p/square-milan-black.jpg", gallery: ["p/square-milan-black.jpg", "p/square-milan-black-45.jpg", "p/square-milan-black-back.jpg"],    stock: 1, sw: ["#111111", "#3a3a3a"] },
-      { c: "Tortoise", img: "p/square-milan-tortoise.jpg", gallery: ["p/square-milan-tortoise.jpg", "p/square-milan-tortoise-45.jpg", "p/square-milan-tortoise-back.jpg"], stock: 0, sw: ["#5a2a12", "#7a4a2a"] },
-      { c: "Brown",    img: "p/square-milan-brown.jpg", gallery: ["p/square-milan-brown.jpg", "p/square-milan-brown-45.jpg", "p/square-milan-brown-back.jpg"],    stock: 0, sw: ["#a4542a", "#3a3a3a"] } ] },
+      { c: "Black",    img: "p/square-milan-black.jpg", gallery: ["p/square-milan-black.jpg", "p/square-milan-black-45.jpg"],    stock: 1, sw: ["#111111", "#3a3a3a"] },
+      { c: "Tortoise", img: "p/square-milan-tortoise.jpg", gallery: ["p/square-milan-tortoise.jpg", "p/square-milan-tortoise-45.jpg"], stock: 0, sw: ["#5a2a12", "#7a4a2a"] },
+      { c: "Brown",    img: "p/square-milan-brown.jpg", gallery: ["p/square-milan-brown.jpg", "p/square-milan-brown-45.jpg"],    stock: 0, sw: ["#a4542a", "#3a3a3a"] } ] },
   { id: "jewi-square",    name: "Jewi Square",    price: 33.90, colors: [
       { c: "Black",             img: "p/jewi-square-black.jpg", gallery: ["p/jewi-square-black.jpg", "p/jewi-square-black-45.jpg", "p/jewi-square-black-back.jpg"],    stock: 1, sw: ["#121212", "#3a3a3a"] },
       { c: "Tortoise",          img: "p/jewi-square-tortoise.jpg", stock: 0, sw: ["#5a2a12", "#8a5a2b"] },
@@ -99,16 +99,16 @@ var PRODUCTS = [
 // FOTO FIT — galleria "Made for all of USS" in home. id = modello indossato (vuoto = non ancora assegnato).
 // Il primo fit di ogni modello diventa anche il bottone "Fit" sulla sua scheda nel catalogo.
 var FITS = [
-  { img: "c/fit/fit-01.jpg", id: "" },
-  { img: "c/fit/fit-02.jpg", id: "" },
-  { img: "c/fit/fit-03.jpg", id: "" },
-  { img: "c/fit/fit-04.jpg", id: "" },
-  { img: "c/fit/fit-05.jpg", id: "" },
-  { img: "c/fit/fit-06.jpg", id: "" },
-  { img: "c/fit/fit-07.jpg", id: "" },
-  { img: "c/fit/fit-08.jpg", id: "" },
+  { img: "c/fit/fit-01.jpg", id: "alien-berlin" },
+  { img: "c/fit/fit-02.jpg", id: "virginia" },
+  { img: "c/fit/fit-03.jpg", id: "ow-square-miami" },
+  { img: "c/fit/fit-04.jpg", id: "", name: "Round Berlin" },
+  { img: "c/fit/fit-05.jpg", id: "undulance" },
+  { img: "c/fit/fit-06.jpg", id: "", name: "Nose XS" },
+  { img: "c/fit/fit-07.jpg", id: "", name: "Speedy Nose XS" },
+  { img: "c/fit/fit-08.jpg", id: "square-rider" },
   { img: "c/fit/fit-09.jpg", id: "" },
-  { img: "c/fit/fit-10.jpg", id: "" }
+  { img: "c/fit/fit-10.jpg", id: "square-rider" }
 ];
 FITS.forEach(function(f){ var p = f.id && product(f.id); if (p && !p.fit) p.fit = f.img; });
 // SOSPESI: { id: "bones", name: "Bones", price: null, colors: [{ c: null, img: "p/bones.jpg", stock: 0 }] }
@@ -254,35 +254,42 @@ function renderCatalog(){
 /* ---------- FIT: Made for all of USS ---------- */
 function renderFits(){
   var st = document.getElementById("fitStrip"); if (!st) return;
-  var n = FITS.length, cur = 0;
+  var n = FITS.length, cur = 0, timer = null, visible = false, paused = false;
+  var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
   st.className = "fit-sel"; st.removeAttribute("tabindex");
   st.innerHTML = '<div class="fs-stage">' + FITS.map(function(f, i){
     var p = f.id ? product(f.id) : null;
-    var cap = p ? '<a class="fit-cap" href="product.html?id='+p.id+'">'+p.name+'</a>' : '';
-    return '<figure data-i="'+i+'"><img src="'+f.img+'" width="1400" height="1007" loading="'+(i<3||i===n-1?'eager':'lazy')+'" decoding="async" alt="USSESS fit '+(i+1)+(p?' — '+p.name:'')+'">'+cap+'</figure>';
+    var cap = p ? '<a class="fit-tag" href="product.html?id='+p.id+'"><i></i>'+p.name+'</a>' : (f.name ? '<span class="fit-tag"><i></i>'+f.name+'</span>' : '');
+    return '<figure data-i="'+i+'"><img src="'+f.img+'" width="1400" height="1007" loading="'+(i<3||i===n-1?'eager':'lazy')+'" decoding="async" alt="USSESS fit '+(i+1)+(p?' — '+p.name:(f.name?' — '+f.name:''))+'">'+cap+'</figure>';
   }).join("") + '</div>' +
   '<button type="button" class="fs-arr fs-prev" aria-label="'+T("camp.prev")+'"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>' +
-  '<button type="button" class="fs-arr fs-next" aria-label="'+T("camp.next")+'"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>' +
-  '<div class="fs-count" aria-live="polite"></div>';
-  var figs = [].slice.call(st.querySelectorAll("figure")), cnt = st.querySelector(".fs-count");
-  function pad(x){ return (x < 10 ? "0" : "") + x; }
+  '<button type="button" class="fs-arr fs-next" aria-label="'+T("camp.next")+'"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>';
+  var figs = [].slice.call(st.querySelectorAll("figure"));
   function draw(){
     figs.forEach(function(f, i){
       var o = ((i - cur) % n + n) % n; if (o > n/2) o -= n;   // giro circolare: -1 sinistra, 0 centro, +1 destra
       f.style.setProperty("--o", o); f.className = o === 0 ? "on" : (Math.abs(o) === 1 ? "side" : "off");
       f.setAttribute("aria-hidden", o === 0 ? "false" : "true");
     });
-    cnt.textContent = pad(cur + 1) + " / " + pad(n);
   }
   function go(d){ cur = ((cur + d) % n + n) % n; draw(); }
-  st.querySelector(".fs-prev").addEventListener("click", function(){ go(-1); });
-  st.querySelector(".fs-next").addEventListener("click", function(){ go(1); });
-  st.addEventListener("click", function(e){ var f = e.target.closest("figure.side"); if (!f) return; e.preventDefault(); go(+f.style.getPropertyValue("--o")); });
-  st.addEventListener("keydown", function(e){ if (e.key === "ArrowLeft") go(-1); if (e.key === "ArrowRight") go(1); });
+  // swipe automatico ogni 3 secondi: si ferma mentre la persona tocca o passa sopra, e quando la sezione non è sullo schermo
+  function tick(){ clearTimeout(timer); if (reduce || paused || !visible) return; timer = setTimeout(function(){ go(1); tick(); }, 3000); }
+  function user(d){ go(d); tick(); }
+  st.querySelector(".fs-prev").addEventListener("click", function(){ user(-1); });
+  st.querySelector(".fs-next").addEventListener("click", function(){ user(1); });
+  st.addEventListener("click", function(e){ var f = e.target.closest("figure.side"); if (!f) return; e.preventDefault(); user(+f.style.getPropertyValue("--o")); });
+  st.addEventListener("keydown", function(e){ if (e.key === "ArrowLeft") user(-1); if (e.key === "ArrowRight") user(1); });
+  st.addEventListener("mouseenter", function(){ paused = true; tick(); });
+  st.addEventListener("mouseleave", function(){ paused = false; tick(); });
   var x0 = null;
-  st.addEventListener("touchstart", function(e){ x0 = e.touches[0].clientX; }, { passive: true });
-  st.addEventListener("touchend", function(e){ if (x0 === null) return; var dx = e.changedTouches[0].clientX - x0; x0 = null; if (Math.abs(dx) > 40) go(dx < 0 ? 1 : -1); });
-  draw();
+  st.addEventListener("touchstart", function(e){ x0 = e.touches[0].clientX; paused = true; tick(); }, { passive: true });
+  st.addEventListener("touchend", function(e){ paused = false; if (x0 === null) { tick(); return; } var dx = e.changedTouches[0].clientX - x0; x0 = null; if (Math.abs(dx) > 40) user(dx < 0 ? 1 : -1); else tick(); });
+  if ("IntersectionObserver" in window) new IntersectionObserver(function(es){ visible = es[0].isIntersecting; tick(); }, { threshold: .4 }).observe(st);
+  else { visible = true; }
+  draw(); tick();
+  // effetto glitch sul titolo
+  var m = document.getElementById("fitsTitle"); if (m) m.setAttribute("data-text", m.textContent);
 }
 
 /* ---------- FILTRI CATALOGO ---------- */
