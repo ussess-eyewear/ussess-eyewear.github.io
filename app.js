@@ -10,6 +10,11 @@ var PAYPAL = { clientId: "BAAiBf5ThQSY0YJyS9Ze5pBfLH4M0Hcji7vmgEZtK2K6RVQ5OZHQsB
 // Quando un pezzo viene venduto: abbassa lo stock di quella colorazione (0 = esaurito).
 // gallery = più foto della stessa colorazione, a scorrimento (facoltativa). fit = foto indossata (facoltativa). Per sospendere un modello spostalo tra i SOSPESI.
 var PRODUCTS = [
+  { id: "round-berlin",   name: "Round Berlin",   price: 39.90, colors: [
+      { c: "Silver / Silver Mirror", img: "p/round-berlin-silver.jpg",       gallery: ["p/round-berlin-silver.jpg", "p/round-berlin-silver-45.jpg"],             stock: 1, sw: ["#c9cbcd", "#a9adb1"] },
+      { c: "Red / Brown",            img: "p/round-berlin-red.jpg",          gallery: ["p/round-berlin-red.jpg", "p/round-berlin-red-45.jpg"],                   stock: 1, sw: ["#8e1c1c", "#d9a88e"] },
+      { c: "Black / Silver Mirror",  img: "p/round-berlin-black-mirror.jpg", gallery: ["p/round-berlin-black-mirror.jpg", "p/round-berlin-black-mirror-45.jpg"], stock: 1, sw: ["#111111", "#bfc2c5"] },
+      { c: "Black / Smoke",          img: "p/round-berlin-black.jpg",        gallery: ["p/round-berlin-black.jpg", "p/round-berlin-black-45.jpg"],               stock: 1, sw: ["#111111", "#3a3a3a"] } ] },
   { id: "oregon-mountains", name: "Oregon Mountains", price: 33.90, colors: [
       { c: "Black / Ice Blue Mirror", img: "p/oregon-black-icemirror.jpg", gallery: ["p/oregon-black-icemirror.jpg", "p/oregon-black-icemirror-45.jpg"], stock: 1, sw: ["#141414", "#5cc8f0"] },
       { c: "Black / Orange",          img: "p/oregon-black-orange.jpg",    gallery: ["p/oregon-black-orange.jpg", "p/oregon-black-orange-45.jpg"],       stock: 3, sw: ["#141414", "#f0603a"] },
@@ -102,7 +107,7 @@ var FITS = [
   { img: "c/fit/fit-01.jpg", id: "alien-berlin" },
   { img: "c/fit/fit-02.jpg", id: "virginia" },
   { img: "c/fit/fit-03.jpg", id: "ow-square-miami", name: "Square Miami" },
-  { img: "c/fit/fit-04.jpg", id: "", name: "Round Berlin" },
+  { img: "c/fit/fit-04.jpg", id: "round-berlin", name: "Round Berlin" },
   { img: "c/fit/fit-05.jpg", id: "undulance" },
   { img: "c/fit/fit-06.jpg", id: "", name: "Nose XS" },
   { img: "c/fit/fit-07.jpg", id: "", name: "Nose XS" },
@@ -648,7 +653,8 @@ var SPECS = {
   "bruxelles-base":   { mat: "metal", acc: "metal" },
   "milan-xl":         { mat: "acetate" },
   "berlin-mask":      { fin: "enamel" },
-  "wien":             { fin: "enamel", cat: "cycling" }
+  "wien":             { fin: "enamel", cat: "cycling" },
+  "round-berlin":     { mat: "pu", fin: "enamel", cat: "avant" }
 };
 function specHTML(id){
   var x = SPECS[id] || {}, rows = [];
