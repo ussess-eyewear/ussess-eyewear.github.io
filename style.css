@@ -534,3 +534,11 @@ textarea{min-height:90px; resize:vertical;}
 .fit-tag:hover{background:#f4f2ec; color:#0d0d0d;} .fit-tag:hover i{background:#0d0d0d;}
 /* titolo fit: grande da computer, piccolo e su una riga da telefono (le due misure sono separate) */
 @media(max-width:719px){.fits-motto{font-size:5.6vw; white-space:nowrap;} .fits-band{padding-block:12px;}}
+
+/* scheda tecnica + contenuto della confezione */
+.pd-spec{margin:26px 0 0; padding:0; border-top:1px solid var(--line);}
+.pd-spec div{display:flex; justify-content:space-between; gap:16px; padding:10px 0; border-bottom:1px solid var(--line); font-size:13px;}
+.pd-spec dt{color:var(--muted); letter-spacing:.3px;} .pd-spec dd{margin:0; text-align:right;}
+.pd-box{margin-top:22px; padding:14px 16px; background:rgba(242,241,236,.05); border:1px solid var(--line); border-radius:3px;}
+.pd-box span{display:block; font-size:10.5px; letter-spacing:2px; text-transform:uppercase; color:var(--muted); margin-bottom:6px;}
+.pd-box p{margin:0; font-size:13px; line-height:1.5;}

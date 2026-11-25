@@ -631,6 +631,34 @@ function fitBox(list, k){
   box.addEventListener("touchend", function(e){ if (x0 === null) return; var dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 40 && list.length > 1) step(dx < 0 ? 1 : -1); x0 = null; });
   document.addEventListener("keydown", key); show(); document.body.appendChild(box); document.body.style.overflow = "hidden";
 }
+/* Scheda tecnica (pagina prodotto). mat = materiale, fin = finitura, polar = lenti polarizzate, cat = categoria, acc = accessori.
+   Tutte le lenti sono UV400. Valori tradotti in i18n.js (mat.*, fin.*, cat.*, acc.*). Mai scrivere "plastica". */
+var SPECS = {
+  "oregon-mountains": { mat: "pu", polar: true },
+  "oregon-wood":      { mat: "pu", fin: "matte", polar: true },
+  "tokyo-wide":       { mat: "metal", polar: true },
+  "tron":             { polar: true },
+  "zurich":           { mat: "acetate", acc: "zurich" },
+  "alien-berlin":     { mat: "acetate", cat: "avant" },
+  "virginia-x":       { mat: "steel" },
+  "london-rider":     { acc: "london" },
+  "bones":            { mat: "acetate", fin: "matte" },
+  "bones-2":          { mat: "acetate", fin: "matte" },
+  "venice-x":         { mat: "acetate" },
+  "bruxelles-base":   { mat: "metal", acc: "metal" },
+  "milan-xl":         { mat: "acetate" },
+  "berlin-mask":      { fin: "enamel" },
+  "wien":             { fin: "enamel", cat: "cycling" }
+};
+function specHTML(id){
+  var x = SPECS[id] || {}, rows = [];
+  if (x.mat) rows.push([T("spec.mat"), T("mat." + x.mat)]);
+  if (x.fin) rows.push([T("spec.fin"), T("fin." + x.fin)]);
+  rows.push([T("spec.lens"), (x.polar ? T("lens.polar") + " · " : "") + "UV400"]);
+  if (x.cat) rows.push([T("spec.cat"), T("cat." + x.cat)]);
+  if (x.acc) rows.push([T("spec.acc"), T("acc." + x.acc)]);
+  return '<dl class="pd-spec">' + rows.map(function(r){ return '<div><dt>' + r[0] + '</dt><dd>' + r[1] + '</dd></div>'; }).join("") + '</dl>';
+}
 function renderProduct(){
   var root = document.getElementById("pd"); if (!root) return;
   var q = new URLSearchParams(location.search), p = product(q.get("id"));
@@ -663,6 +691,8 @@ function renderProduct(){
     if (SHOP_OPEN) h += '<button class="pd-add" type="button"' + (ok ? '' : ' disabled') + '>' + (ok ? T("add.short") + T("add.long") : (v.stock <= 0 ? T("soldout") : T("incart"))) + '</button>';
     h += '<ul class="pd-notes"><li>' + T("cart.shipNote") + '</li><li>' + T("cart.returns") + '</li></ul>';
     var d = T("pd." + p.id); if (d !== "pd." + p.id) h += '<p class="pd-desc">' + d + '</p>';
+    h += specHTML(p.id);
+    h += '<div class="pd-box"><span>' + T("box.h") + '</span><p>' + T("box.t") + '</p></div>';
     if (seen.length) {
       h += '<div class="pd-seen"><div class="pd-seen-h"><span>Campaign lens references</span><a href="pitstop.html">Pit Stop ↗</a></div><div class="pd-seen-g">' +
         seen.map(function(k){ return '<a href="pitstop.html"><img src="c/gaex/pitstop-' + k + '.jpg" alt="Pit Stop — ' + p.name + '" loading="lazy"></a>'; }).join("") + '</div></div>';
