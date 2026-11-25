@@ -96,6 +96,21 @@ var PRODUCTS = [
   { id: "disco-cycle",    name: "Disco Cycle",    price: 19.90, was: 24.90, colors: [{ c: null, img: "p/disco-cycle.jpg", stock: 1 }] },
   { id: "london-rider",   name: "London Rider",   price: 29.90, colors: [{ c: null, img: "p/enzo-line.jpg", stock: 1 }] }
 ];
+// FOTO FIT — galleria "Made for all of USS" in home. id = modello indossato (vuoto = non ancora assegnato).
+// Il primo fit di ogni modello diventa anche il bottone "Fit" sulla sua scheda nel catalogo.
+var FITS = [
+  { img: "c/fit/fit-01.jpg", id: "" },
+  { img: "c/fit/fit-02.jpg", id: "" },
+  { img: "c/fit/fit-03.jpg", id: "" },
+  { img: "c/fit/fit-04.jpg", id: "" },
+  { img: "c/fit/fit-05.jpg", id: "" },
+  { img: "c/fit/fit-06.jpg", id: "" },
+  { img: "c/fit/fit-07.jpg", id: "" },
+  { img: "c/fit/fit-08.jpg", id: "" },
+  { img: "c/fit/fit-09.jpg", id: "" },
+  { img: "c/fit/fit-10.jpg", id: "" }
+];
+FITS.forEach(function(f){ var p = f.id && product(f.id); if (p && !p.fit) p.fit = f.img; });
 // SOSPESI: { id: "bones", name: "Bones", price: null, colors: [{ c: null, img: "p/bones.jpg", stock: 0 }] }
 var VISIBLE = 3; // quanti modelli a vista prima del "+"
 
@@ -233,6 +248,16 @@ function renderCatalog(){
     btn.textContent = open ? "\u2212" : "+"; lbl.textContent = open ? T("home.showLess") : T("home.showAll");
   });
   initFilters(grid, more);
+}
+
+/* ---------- FIT: Made for all of USS ---------- */
+function renderFits(){
+  var st = document.getElementById("fitStrip"); if (!st) return;
+  st.innerHTML = FITS.map(function(f, i){
+    var p = f.id ? product(f.id) : null;
+    var cap = p ? '<a class="fit-cap" href="product.html?id='+p.id+'">'+p.name+'</a>' : '';
+    return '<figure><img src="'+f.img+'" width="1400" height="1007" loading="'+(i<2?'eager':'lazy')+'" decoding="async" alt="USSESS fit '+(i+1)+(p?' — '+p.name:'')+'">'+cap+'</figure>';
+  }).join("");
 }
 
 /* ---------- FILTRI CATALOGO ---------- */
@@ -474,7 +499,7 @@ function copyText(id, btn){
 function sel(id){ var r = document.createRange(); r.selectNodeContents(document.getElementById(id)); var s = window.getSelection(); s.removeAllRanges(); s.addRange(r); }
 
 document.addEventListener("DOMContentLoaded", function(){
-  updateBadge(); logo3d(); ticker(); renderCatalog(); heroVideo(); renderCart(); cartClicks(); analytics();
+  updateBadge(); logo3d(); ticker(); renderCatalog(); renderFits(); heroVideo(); renderCart(); cartClicks(); analytics();
   var y = document.getElementById("year"); if (y) y.textContent = new Date().getFullYear();
 });
 
