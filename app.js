@@ -604,6 +604,26 @@ function tagFigures(root){
 }
 
 /* ---------- PAGINA PRODOTTO ---------- */
+/* foto fit di un prodotto: p.fit (stringa o lista) + foto della galleria FITS collegate al modello */
+function fitsOf(p){
+  var out = [].concat(p.fit || []);
+  FITS.forEach(function(f){ if (f.id === p.id && out.indexOf(f.img) < 0) out.push(f.img); });
+  return out;
+}
+/* anteprima a schermo intero delle foto fit */
+function fitBox(list, k){
+  var box = document.createElement("div"); box.className = "pd-lb"; box.setAttribute("role", "dialog");
+  function show(){ box.innerHTML = '<img src="' + list[k] + '" alt="Fit ' + (k + 1) + '/' + list.length + '">' +
+    '<button type="button" class="pd-lb-x" aria-label="' + T("menu.close") + '">×</button>' +
+    (list.length > 1 ? '<button type="button" class="pd-lb-a prev" aria-label="‹">‹</button><button type="button" class="pd-lb-a next" aria-label="›">›</button><span class="pd-lb-n">' + (k + 1) + ' / ' + list.length + '</span>' : ''); }
+  function close(){ document.removeEventListener("keydown", key); box.remove(); document.body.style.overflow = ""; }
+  function step(d){ k = (k + d + list.length) % list.length; show(); }
+  function key(e){ if (e.key === "Escape") close(); else if (e.key === "ArrowRight") step(1); else if (e.key === "ArrowLeft") step(-1); }
+  box.addEventListener("click", function(e){ var a = e.target.closest(".pd-lb-a"); if (a) { step(a.classList.contains("next") ? 1 : -1); return; } if (e.target.tagName !== "IMG") close(); });
+  var x0 = null; box.addEventListener("touchstart", function(e){ x0 = e.touches[0].clientX; }, { passive: true });
+  box.addEventListener("touchend", function(e){ if (x0 === null) return; var dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 40 && list.length > 1) step(dx < 0 ? 1 : -1); x0 = null; });
+  document.addEventListener("keydown", key); show(); document.body.appendChild(box); document.body.style.overflow = "hidden";
+}
 function renderProduct(){
   var root = document.getElementById("pd"); if (!root) return;
   var q = new URLSearchParams(location.search), p = product(q.get("id"));
@@ -614,7 +634,15 @@ function renderProduct(){
   Object.keys(TAGS).forEach(function(k){ TAGS[k].forEach(function(t){ if (t.id === p.id && seen.indexOf(k) < 0) seen.push(k); }); });
   function draw(){
     var v = p.colors[ci], gal = v.gallery || [v.img], h = "";
-    h += '<div class="pd-gal">' + gal.map(function(s, k){ return '<figure class="pd-img' + (k === 0 ? ' main' : '') + '"><img src="' + s + '" alt="' + itemName(p, ci) + '"' + (k ? ' loading="lazy"' : '') + '></figure>'; }).join("") + '</div>';
+    var fits = fitsOf(p);
+    h += '<div class="pd-left"><div class="pd-car"><div class="pd-track">' + gal.map(function(s, k){ return '<figure><img src="' + s + '" alt="' + itemName(p, ci) + ' ' + (k + 1) + '/' + gal.length + '"' + (k ? ' loading="lazy"' : '') + ' draggable="false"></figure>'; }).join("") + '</div>';
+    if (gal.length > 1) {
+      h += '<button type="button" class="pd-arr prev" aria-label="‹" hidden>‹</button><button type="button" class="pd-arr next" aria-label="›">›</button>';
+      h += '<div class="pd-dots">' + gal.map(function(s, k){ return '<button type="button" class="' + (k === 0 ? 'on' : '') + '" data-k="' + k + '" aria-label="' + (k + 1) + '/' + gal.length + '"></button>'; }).join("") + '</div>';
+    }
+    h += '</div>';
+    if (fits.length) h += '<div class="pd-fits"><span class="pd-fits-h">Fit</span><div class="pd-fits-g">' + fits.map(function(s, k){ return '<button type="button" class="pd-fit" data-f="' + k + '"><img src="' + s + '" alt="' + p.name + ' — fit ' + (k + 1) + '" loading="lazy"></button>'; }).join("") + '</div></div>';
+    h += '</div>';
     h += '<aside class="pd-info"><div class="pd-sticky">';
     h += '<a class="pd-crumb" href="index.html#shop">Shop</a>';
     h += '<h1 class="pd-name">' + p.name + '</h1>';
@@ -634,9 +662,23 @@ function renderProduct(){
     }
     h += '</div></aside>';
     root.innerHTML = h;
+    var tr = root.querySelector(".pd-track");
+    if (tr) tr.addEventListener("scroll", function(){ syncCar(root); }, { passive: true });
   }
+  function syncCar(r){
+    var tr = r.querySelector(".pd-track"); if (!tr) return;
+    var n = tr.children.length, k = Math.round(tr.scrollLeft / tr.clientWidth);
+    r.querySelectorAll(".pd-dots button").forEach(function(d, i){ d.classList.toggle("on", i === k); });
+    var pv = r.querySelector(".pd-arr.prev"), nx = r.querySelector(".pd-arr.next");
+    if (pv) pv.hidden = k <= 0; if (nx) nx.hidden = k >= n - 1;
+  }
+  function goSlide(k){ var tr = root.querySelector(".pd-track"); if (tr) tr.scrollTo({ left: tr.clientWidth * k, behavior: "smooth" }); }
   draw();
   root.addEventListener("click", function(e){
+    var tr = root.querySelector(".pd-track"), cur = tr ? Math.round(tr.scrollLeft / tr.clientWidth) : 0;
+    var dot = e.target.closest(".pd-dots button"); if (dot) { goSlide(+dot.getAttribute("data-k")); return; }
+    var ar = e.target.closest(".pd-arr"); if (ar) { goSlide(cur + (ar.classList.contains("next") ? 1 : -1)); return; }
+    var ft = e.target.closest(".pd-fit"); if (ft) { fitBox(fitsOf(p), +ft.getAttribute("data-f")); return; }
     var sw = e.target.closest(".sw");
     if (sw) { ci = +sw.getAttribute("data-ci"); draw(); history.replaceState(null, "", pdURL(p.id, ci)); return; }
     var b = e.target.closest(".pd-add");
