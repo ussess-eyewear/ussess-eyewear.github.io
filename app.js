@@ -112,7 +112,8 @@ var FITS = [
 ];
 FITS.forEach(function(f){ var p = f.id && product(f.id); if (p && !p.fit) p.fit = f.img; });
 // SOSPESI: { id: "bones", name: "Bones", price: null, colors: [{ c: null, img: "p/bones.jpg", stock: 0 }] }
-var VISIBLE = 3; // quanti modelli a vista prima del "+"
+var COLS = (window.matchMedia && matchMedia("(max-width:719px)").matches) ? 2 : 3; // 2 colonne su telefono
+var VISIBLE = COLS === 2 ? 6 : 3; // quanti modelli a vista prima del "+"
 
 // Spedizione: gratis in Italia; in Europa gratis da europeFreeFrom in su, altrimenti costa "europe" (euro). null = non ancora definito.
 var SHIPPING = { italy: 0, europe: null, europeFreeFrom: 59.99 };
@@ -173,15 +174,15 @@ function thumbHTML(p, ci){
 function cardHTML(p){
   var ci = firstAvail(p), v = p.colors[ci], h = "";
   h += thumbHTML(p, ci);
+  h += '<div class="swatches">';
   if (p.colors.length > 1) {
-    h += '<div class="swatches">';
     p.colors.forEach(function(x, k){
       h += '<button type="button" class="sw'+(k===ci?' on':'')+(x.stock<=0?' out':'')+'" data-ci="'+k+'" aria-label="'+x.c+'" title="'+x.c+'" style="--f:'+x.sw[0]+';--l:'+x.sw[1]+'"></button>';
     });
-    h += '</div>';
   }
+  h += '</div>';
   h += '<div class="meta"><span class="name">'+p.name+'</span>' +
-       (p.colors.length > 1 ? '<span class="cname">'+v.c+'</span>' : '') +
+       '<span class="cname">'+(p.colors.length > 1 ? v.c : '&nbsp;')+'</span>' +
        '<span class="price">'+(p.was ? '<s>'+eur(p.was)+'</s> ' : '')+'<b>'+eur(p.price)+'</b></span></div>';
   if (SHOP_OPEN) h += '<button class="add" type="button" data-id="'+p.id+'">'+T("add.short")+'<span class="long">'+T("add.long")+'</span></button>';
   else if (soldOut(p)) h += '<span class="soldout">'+T("soldout")+'</span>';
@@ -214,7 +215,7 @@ function renderCatalog(){
   });
   grid.appendChild(more);
   var all = grid.querySelectorAll(".card"), last = all[all.length-1], n = all.length;
-  if (n > VISIBLE && n % 3 === 1) last.classList.add("solo");
+  if (n > VISIBLE && n % COLS === 1) last.classList.add("solo");
   grid.addEventListener("scroll", function(e){
     var tr = e.target; if (!tr.classList || !tr.classList.contains("gal-track")) return;
     var k = Math.round(tr.scrollLeft / tr.clientWidth);
@@ -253,11 +254,35 @@ function renderCatalog(){
 /* ---------- FIT: Made for all of USS ---------- */
 function renderFits(){
   var st = document.getElementById("fitStrip"); if (!st) return;
-  st.innerHTML = FITS.map(function(f, i){
+  var n = FITS.length, cur = 0;
+  st.className = "fit-sel"; st.removeAttribute("tabindex");
+  st.innerHTML = '<div class="fs-stage">' + FITS.map(function(f, i){
     var p = f.id ? product(f.id) : null;
     var cap = p ? '<a class="fit-cap" href="product.html?id='+p.id+'">'+p.name+'</a>' : '';
-    return '<figure><img src="'+f.img+'" width="1400" height="1007" loading="'+(i<2?'eager':'lazy')+'" decoding="async" alt="USSESS fit '+(i+1)+(p?' — '+p.name:'')+'">'+cap+'</figure>';
-  }).join("");
+    return '<figure data-i="'+i+'"><img src="'+f.img+'" width="1400" height="1007" loading="'+(i<3||i===n-1?'eager':'lazy')+'" decoding="async" alt="USSESS fit '+(i+1)+(p?' — '+p.name:'')+'">'+cap+'</figure>';
+  }).join("") + '</div>' +
+  '<button type="button" class="fs-arr fs-prev" aria-label="'+T("camp.prev")+'"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>' +
+  '<button type="button" class="fs-arr fs-next" aria-label="'+T("camp.next")+'"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>' +
+  '<div class="fs-count" aria-live="polite"></div>';
+  var figs = [].slice.call(st.querySelectorAll("figure")), cnt = st.querySelector(".fs-count");
+  function pad(x){ return (x < 10 ? "0" : "") + x; }
+  function draw(){
+    figs.forEach(function(f, i){
+      var o = ((i - cur) % n + n) % n; if (o > n/2) o -= n;   // giro circolare: -1 sinistra, 0 centro, +1 destra
+      f.style.setProperty("--o", o); f.className = o === 0 ? "on" : (Math.abs(o) === 1 ? "side" : "off");
+      f.setAttribute("aria-hidden", o === 0 ? "false" : "true");
+    });
+    cnt.textContent = pad(cur + 1) + " / " + pad(n);
+  }
+  function go(d){ cur = ((cur + d) % n + n) % n; draw(); }
+  st.querySelector(".fs-prev").addEventListener("click", function(){ go(-1); });
+  st.querySelector(".fs-next").addEventListener("click", function(){ go(1); });
+  st.addEventListener("click", function(e){ var f = e.target.closest("figure.side"); if (!f) return; e.preventDefault(); go(+f.style.getPropertyValue("--o")); });
+  st.addEventListener("keydown", function(e){ if (e.key === "ArrowLeft") go(-1); if (e.key === "ArrowRight") go(1); });
+  var x0 = null;
+  st.addEventListener("touchstart", function(e){ x0 = e.touches[0].clientX; }, { passive: true });
+  st.addEventListener("touchend", function(e){ if (x0 === null) return; var dx = e.changedTouches[0].clientX - x0; x0 = null; if (Math.abs(dx) > 40) go(dx < 0 ? 1 : -1); });
+  draw();
 }
 
 /* ---------- FILTRI CATALOGO ---------- */
@@ -310,7 +335,7 @@ function initFilters(grid, more){
 
   function setSolo(list){
     cards.forEach(function(c){ c.classList.remove("solo"); });
-    var n = list.length; if (n > 1 && n % 3 === 1) list[n-1].classList.add("solo");
+    var n = list.length; if (n > 1 && n % COLS === 1) list[n-1].classList.add("solo");
   }
   function apply(){
     panel.querySelectorAll(".chip").forEach(function(c){
