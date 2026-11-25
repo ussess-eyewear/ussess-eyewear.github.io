@@ -101,14 +101,14 @@ var PRODUCTS = [
 var FITS = [
   { img: "c/fit/fit-01.jpg", id: "alien-berlin" },
   { img: "c/fit/fit-02.jpg", id: "virginia" },
-  { img: "c/fit/fit-03.jpg", id: "ow-square-miami" },
+  { img: "c/fit/fit-03.jpg", id: "ow-square-miami", name: "Square Miami" },
   { img: "c/fit/fit-04.jpg", id: "", name: "Round Berlin" },
   { img: "c/fit/fit-05.jpg", id: "undulance" },
   { img: "c/fit/fit-06.jpg", id: "", name: "Nose XS" },
-  { img: "c/fit/fit-07.jpg", id: "", name: "Speedy Nose XS" },
-  { img: "c/fit/fit-08.jpg", id: "square-rider" },
-  { img: "c/fit/fit-09.jpg", id: "" },
-  { img: "c/fit/fit-10.jpg", id: "square-rider" }
+  { img: "c/fit/fit-07.jpg", id: "", name: "Nose XS" },
+  { img: "c/fit/fit-08.jpg", id: "square-rider", name: "Venice Rider" },
+  { img: "c/fit/fit-09.jpg", id: "", name: "Over Ale" },
+  { img: "c/fit/fit-10.jpg", id: "square-rider", name: "Venice Rider" }
 ];
 FITS.forEach(function(f){ var p = f.id && product(f.id); if (p && !p.fit) p.fit = f.img; });
 // SOSPESI: { id: "bones", name: "Bones", price: null, colors: [{ c: null, img: "p/bones.jpg", stock: 0 }] }
@@ -259,8 +259,8 @@ function renderFits(){
   st.className = "fit-sel"; st.removeAttribute("tabindex");
   st.innerHTML = '<div class="fs-stage">' + FITS.map(function(f, i){
     var p = f.id ? product(f.id) : null;
-    var cap = p ? '<a class="fit-tag" href="product.html?id='+p.id+'"><i></i>'+p.name+'</a>' : (f.name ? '<span class="fit-tag"><i></i>'+f.name+'</span>' : '');
-    return '<figure data-i="'+i+'"><img src="'+f.img+'" width="1400" height="1007" loading="'+(i<3||i===n-1?'eager':'lazy')+'" decoding="async" alt="USSESS fit '+(i+1)+(p?' — '+p.name:(f.name?' — '+f.name:''))+'">'+cap+'</figure>';
+    var cap = p ? '<a class="fit-tag" href="product.html?id='+p.id+'"><i></i>'+(f.name || p.name)+'</a>' : (f.name ? '<span class="fit-tag"><i></i>'+f.name+'</span>' : '');
+    return '<figure data-i="'+i+'"><img src="'+f.img+'" width="1400" height="1007" loading="'+(i<3||i===n-1?'eager':'lazy')+'" decoding="async" alt="USSESS fit '+(i+1)+(f.name?' — '+f.name:(p?' — '+p.name:''))+'">'+cap+'</figure>';
   }).join("") + '</div>' +
   '<button type="button" class="fs-arr fs-prev" aria-label="'+T("camp.prev")+'"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>' +
   '<button type="button" class="fs-arr fs-next" aria-label="'+T("camp.next")+'"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>';
