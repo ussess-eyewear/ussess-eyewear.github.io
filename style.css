@@ -515,3 +515,6 @@ textarea{min-height:90px; resize:vertical;}
 .pd-lb-a{position:absolute; top:50%; transform:translateY(-50%); width:46px; height:46px; border:0; background:none; color:#fff; font-size:34px; cursor:pointer;}
 .pd-lb-a.prev{left:6px;} .pd-lb-a.next{right:6px;}
 .pd-lb-n{position:absolute; bottom:18px; left:0; right:0; text-align:center; color:rgba(255,255,255,.7); font-size:12px; letter-spacing:2px;}
+/* card catalogo: foto e nome aprono la pagina prodotto */
+.card .thumb, .card .name{cursor:pointer;}
+.card .name:hover{text-decoration:underline; text-underline-offset:3px;}

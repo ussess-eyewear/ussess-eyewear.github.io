@@ -228,12 +228,12 @@ function renderCatalog(){
     var tr = card.querySelector(".gal-track");
     var dot = e.target.closest(".gal-dots button");
     if (tr && dot) { tr.scrollTo({ left: tr.clientWidth * +dot.getAttribute("data-k"), behavior: "smooth" }); return; }
-    if (tr && e.target.closest(".gal-track")) { var n = tr.children.length, k = Math.round(tr.scrollLeft / tr.clientWidth);
-      tr.scrollTo({ left: tr.clientWidth * ((k + 1) % n), behavior: "smooth" }); return; }
     var fb = e.target.closest(".fitbtn");
     if (fb) { var on = !card.classList.contains("fit-on"); card.classList.toggle("fit-on", on); fb.classList.toggle("on", on);
       var img = card.querySelector(".thumb img"), ci = +card.getAttribute("data-ci");
       img.src = on ? p.fit : p.colors[ci].img; return; }
+    /* foto o nome del modello: apre la pagina prodotto sul colore scelto */
+    if (!fb && (e.target.closest(".thumb") || e.target.closest(".name"))) { location.href = pdURL(p.id, +card.getAttribute("data-ci") || 0); return; }
     var b = e.target.closest(".add"); if (!b || b.disabled) return;
     if (addToCart(p.id, +card.getAttribute("data-ci"))) {
       b.classList.add("done"); b.textContent = T("add.done");
