@@ -10,11 +10,16 @@ var PAYPAL = { clientId: "BAAiBf5ThQSY0YJyS9Ze5pBfLH4M0Hcji7vmgEZtK2K6RVQ5OZHQsB
 // Quando un pezzo viene venduto: abbassa lo stock di quella colorazione (0 = esaurito).
 // gallery = più foto della stessa colorazione, a scorrimento (facoltativa). fit = foto indossata (facoltativa). Per sospendere un modello spostalo tra i SOSPESI.
 var PRODUCTS = [
+  { id: "oregon-mountains", name: "Oregon Mountains", price: 33.90, colors: [
+      { c: "Black / Ice Blue Mirror", img: "p/oregon-black-icemirror.jpg", gallery: ["p/oregon-black-icemirror.jpg", "p/oregon-black-icemirror-45.jpg"], stock: 1, sw: ["#141414", "#5cc8f0"] },
+      { c: "Black / Orange",          img: "p/oregon-black-orange.jpg",    gallery: ["p/oregon-black-orange.jpg", "p/oregon-black-orange-45.jpg"],       stock: 3, sw: ["#141414", "#f0603a"] },
+      { c: "Black / Smoke",           img: "p/oregon-black-smoke.jpg",     gallery: ["p/oregon-black-smoke.jpg", "p/oregon-black-smoke-45.jpg"],         stock: 1, sw: ["#141414", "#3a3a3a"] },
+      { c: "Black / Blue",            img: "p/oregon-black-blue-45.jpg",   stock: 0, sw: ["#141414", "#1f5fd6"] } ] },
   { id: "oregon-wood",    name: "Oregon Mountains – Wood Grains", price: 33.90, colors: [
-      { c: "Camo / Orange", img: "p/oregon-wood-orange.jpg", stock: 2, sw: ["#8a7a62", "#f0541e"] },
-      { c: "Camo / Blue",   img: "p/oregon-wood-blue.jpg",   stock: 1, sw: ["#8a7a62", "#1f6fd6"] },
-      { c: "Camo / Yellow", img: "p/oregon-wood-yellow.jpg", stock: 3, sw: ["#8a7a62", "#d6d21e"] },
-      { c: "Camo / Smoke",  img: "p/oregon-wood-smoke.jpg",  stock: 1, sw: ["#8a7a62", "#3a3a3a"] } ] },
+      { c: "Camo / Orange", img: "p/oregon-wood-orange.jpg", gallery: ["p/oregon-wood-orange.jpg", "p/oregon-wood-orange-45.jpg"], stock: 2, sw: ["#8a7a62", "#f0541e"] },
+      { c: "Camo / Blue",   img: "p/oregon-wood-blue.jpg", gallery: ["p/oregon-wood-blue.jpg", "p/oregon-wood-blue-45.jpg"],   stock: 1, sw: ["#8a7a62", "#1f6fd6"] },
+      { c: "Camo / Yellow", img: "p/oregon-wood-yellow.jpg", gallery: ["p/oregon-wood-yellow.jpg", "p/oregon-wood-yellow-45.jpg"], stock: 3, sw: ["#8a7a62", "#d6d21e"] },
+      { c: "Camo / Smoke",  img: "p/oregon-wood-smoke.jpg", gallery: ["p/oregon-wood-smoke.jpg", "p/oregon-wood-smoke-45.jpg"],  stock: 1, sw: ["#8a7a62", "#3a3a3a"] } ] },
   { id: "milan-xl",       name: "Milan XL",       price: 27.90, was: 33.90, colors: [
       { c: null, img: "p/milan-xl-front.jpg", gallery: ["p/milan-xl-front.jpg", "p/milan-xl-45.jpg", "p/milan-xl-back.jpg"], stock: 3 } ] },
   { id: "berlin-mask",    name: "Berlin Mask",    price: 25.90, was: 33.90, colors: [
