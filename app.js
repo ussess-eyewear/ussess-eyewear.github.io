@@ -654,7 +654,8 @@ var SPECS = {
   "milan-xl":         { mat: "acetate" },
   "berlin-mask":      { fin: "enamel" },
   "wien":             { fin: "enamel", cat: "cycling" },
-  "round-berlin":     { mat: "pu", fin: "enamel", cat: "avant" }
+  "round-berlin":     { mat: "pu", fin: "enamel", cat: "avant" },
+  "square-milan":     { mat: "acetate" }
 };
 function specHTML(id){
   var x = SPECS[id] || {}, rows = [];
