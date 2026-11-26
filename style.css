@@ -527,15 +527,15 @@ textarea{min-height:90px; resize:vertical;}
 .fits-motto::after{animation:glitchB 6s steps(1,end) infinite;}
 .fits-motto{animation:glitchM 6s steps(1,end) infinite;}
 @keyframes glitchA{0%,79.9%,84%,92.9%,94%,100%{opacity:0; transform:none; clip-path:inset(0 0 100% 0);}
-  80%{opacity:1; transform:translateX(-.09em); clip-path:inset(16% 0 60% 0);}
-  81%{opacity:1; transform:translateX(.06em); clip-path:inset(60% 0 16% 0);}
-  82.5%{opacity:1; transform:translateX(-.04em); clip-path:inset(38% 0 46% 0);}
-  93%{opacity:1; transform:translateX(.07em); clip-path:inset(6% 0 80% 0);}}
+  80%{opacity:1; transform:translateX(-.28em); clip-path:inset(16% 0 60% 0);}
+  81%{opacity:1; transform:translateX(.2em); clip-path:inset(60% 0 16% 0);}
+  82.5%{opacity:1; transform:translateX(-.12em); clip-path:inset(38% 0 46% 0);}
+  93%{opacity:1; transform:translateX(.22em); clip-path:inset(6% 0 80% 0);}}
 @keyframes glitchB{0%,80.4%,83.5%,93.4%,94.5%,100%{opacity:0; transform:none; clip-path:inset(0 0 100% 0);}
-  80.5%{opacity:1; transform:translateX(.11em); clip-path:inset(70% 0 6% 0);}
-  82%{opacity:1; transform:translateX(-.12em); clip-path:inset(26% 0 54% 0);}
-  93.5%{opacity:1; transform:translateX(-.05em); clip-path:inset(46% 0 32% 0);}}
-@keyframes glitchM{0%,79.9%,84%,100%{transform:none;} 81%{transform:translateX(.015em);} 82.5%{transform:translateX(-.015em);}}
+  80.5%{opacity:1; transform:translateX(.34em); clip-path:inset(70% 0 6% 0);}
+  82%{opacity:1; transform:translateX(-.3em); clip-path:inset(26% 0 54% 0);}
+  93.5%{opacity:1; transform:translateX(-.16em); clip-path:inset(46% 0 32% 0);}}
+@keyframes glitchM{0%,79.9%,84%,100%{transform:none;} 81%{transform:translateX(.03em);} 82.5%{transform:translateX(-.03em);}}
 @media (prefers-reduced-motion: reduce){.fits-motto,.fits-motto::before,.fits-motto::after{animation:none;}}
 .fit-tag{position:absolute; left:10px; bottom:10px; display:inline-flex; align-items:center; gap:6px; padding:5px 9px 5px 7px; border-radius:20px; background:rgba(13,13,13,.55); color:#f4f2ec; font-size:10px; letter-spacing:1.4px; text-transform:uppercase; text-decoration:none; backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); opacity:0; transform:translateY(6px); transition:opacity .4s .35s, transform .4s .35s, background .2s;}
 .fit-tag i{width:6px; height:6px; border-radius:50%; background:#f4f2ec; box-shadow:0 0 0 3px rgba(244,242,236,.25);}
