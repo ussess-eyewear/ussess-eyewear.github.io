@@ -34,7 +34,7 @@ var PRODUCTS = [
   { id: "square-milan",   name: "Square Milan",   price: 33.90, colors: [
       { c: "Black",    img: "p/square-milan-black.jpg", gallery: ["p/square-milan-black.jpg", "p/square-milan-black-45.jpg"],    stock: 1, sw: ["#111111", "#3a3a3a"] },
       { c: "Tortoise", img: "p/square-milan-tortoise.jpg", gallery: ["p/square-milan-tortoise.jpg", "p/square-milan-tortoise-45.jpg"], stock: 0, sw: ["#5a2a12", "#7a4a2a"] },
-      { c: "Brown",    img: "p/square-milan-brown.jpg", gallery: ["p/square-milan-brown.jpg", "p/square-milan-brown-45.jpg"],    stock: 0, sw: ["#a4542a", "#3a3a3a"] } ] },
+      { c: "Brown",    img: "p/square-milan-brown.jpg?v=2", gallery: ["p/square-milan-brown.jpg?v=2", "p/square-milan-brown-45.jpg?v=2"],    stock: 0, sw: ["#8e3a18", "#3a3a3a"] } ] },
   { id: "jewi-square",    name: "Jewi Square",    price: 33.90, colors: [
       { c: "Black",             img: "p/jewi-square-black.jpg", gallery: ["p/jewi-square-black.jpg", "p/jewi-square-black-45.jpg", "p/jewi-square-black-back.jpg"],    stock: 1, sw: ["#121212", "#3a3a3a"] },
       { c: "Tortoise",          img: "p/jewi-square-tortoise.jpg", stock: 0, sw: ["#5a2a12", "#8a5a2b"] },
@@ -107,7 +107,7 @@ var FITS = [
   { img: "c/fit/fit-01.jpg", id: "alien-berlin" },
   { img: "c/fit/fit-02.jpg", id: "virginia" },
   { img: "c/fit/fit-03.jpg", id: "ow-square-miami", name: "Square Miami" },
-  { img: "c/fit/fit-04.jpg", id: "round-berlin", name: "Round Berlin" },
+  { img: "c/fit/fit-04.jpg?v=2", id: "round-berlin", name: "Round Berlin" },
   { img: "c/fit/fit-05.jpg", id: "undulance" },
   { img: "c/fit/fit-06.jpg", id: "", name: "Nose XS" },
   { img: "c/fit/fit-07.jpg", id: "", name: "Nose XS" },

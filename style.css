@@ -471,7 +471,7 @@ textarea{min-height:90px; resize:vertical;}
 }
 
 /* FIT — selettore circolare stile videogame: 3 foto frontali, centro grande, lati più piccoli */
-.fits-motto{font-family:var(--dyn); font-weight:900; font-style:italic; font-stretch:125%; font-variation-settings:"wdth" 125; letter-spacing:-.03em; text-transform:uppercase; font-size:clamp(33px,9vw,78px); line-height:1;}
+.fits-motto{font-family:var(--dyn); font-weight:900; font-style:italic; font-stretch:125%; font-variation-settings:"wdth" 125; letter-spacing:-.03em; text-transform:uppercase; font-size:clamp(26px,7.2vw,62px); line-height:1;}
 .fits-motto b{font-weight:900; letter-spacing:-.03em;}
 .fits-band{padding-block:14px;}
 .fit-sel{--w:min(72vw,600px); position:relative; outline:none;}
@@ -521,19 +521,28 @@ textarea{min-height:90px; resize:vertical;}
 .fits-band{overflow:hidden;}
 .fits-motto{position:relative; display:inline-block;}
 .fits-motto::before,.fits-motto::after{content:attr(data-text); position:absolute; inset:0; pointer-events:none; opacity:0;}
-.fits-motto::before{color:#ff1a1a; text-shadow:0 0 6px rgba(255,26,26,.6); animation:glitchA 4s steps(1) infinite;}
-.fits-motto::after{color:#ffffff; animation:glitchB 4s steps(1) infinite;}
-.fits-motto{animation:glitchM 4s steps(1) infinite;}
-@keyframes glitchA{0%,86%,100%{opacity:0; transform:none; clip-path:none;} 87%{opacity:.85; transform:translate(-3px,1px); clip-path:inset(10% 0 55% 0);} 89%{opacity:.85; transform:translate(3px,-1px); clip-path:inset(60% 0 8% 0);} 91%{opacity:.85; transform:translate(-2px,0); clip-path:inset(35% 0 40% 0);} 93%{opacity:0;}}
-@keyframes glitchB{0%,86%,100%{opacity:0; transform:none; clip-path:none;} 88%{opacity:.85; transform:translate(3px,-1px); clip-path:inset(45% 0 25% 0);} 90%{opacity:.85; transform:translate(-3px,1px); clip-path:inset(5% 0 70% 0);} 92%{opacity:.85; transform:translate(2px,0); clip-path:inset(70% 0 5% 0);} 93%{opacity:0;}}
-@keyframes glitchM{0%,86%,94%,100%{transform:none;} 88%{transform:skewX(-6deg) translateX(2px);} 90%{transform:skewX(4deg) translateX(-2px);} 92%{transform:none;}}
+/* glitch monocromatico: fasce del testo che scattano di lato (niente colori), raffiche brevi e irregolari */
+.fits-motto::before,.fits-motto::after{inset:0 -.2em; padding:0 .2em; color:#0d0d0d; background:var(--paper); will-change:transform,clip-path;}
+.fits-motto::before{animation:glitchA 6s steps(1,end) infinite;}
+.fits-motto::after{animation:glitchB 6s steps(1,end) infinite;}
+.fits-motto{animation:glitchM 6s steps(1,end) infinite;}
+@keyframes glitchA{0%,79.9%,84%,92.9%,94%,100%{opacity:0; transform:none; clip-path:inset(0 0 100% 0);}
+  80%{opacity:1; transform:translateX(-.09em); clip-path:inset(16% 0 60% 0);}
+  81%{opacity:1; transform:translateX(.06em); clip-path:inset(60% 0 16% 0);}
+  82.5%{opacity:1; transform:translateX(-.04em); clip-path:inset(38% 0 46% 0);}
+  93%{opacity:1; transform:translateX(.07em); clip-path:inset(6% 0 80% 0);}}
+@keyframes glitchB{0%,80.4%,83.5%,93.4%,94.5%,100%{opacity:0; transform:none; clip-path:inset(0 0 100% 0);}
+  80.5%{opacity:1; transform:translateX(.11em); clip-path:inset(70% 0 6% 0);}
+  82%{opacity:1; transform:translateX(-.12em); clip-path:inset(26% 0 54% 0);}
+  93.5%{opacity:1; transform:translateX(-.05em); clip-path:inset(46% 0 32% 0);}}
+@keyframes glitchM{0%,79.9%,84%,100%{transform:none;} 81%{transform:translateX(.015em);} 82.5%{transform:translateX(-.015em);}}
 @media (prefers-reduced-motion: reduce){.fits-motto,.fits-motto::before,.fits-motto::after{animation:none;}}
 .fit-tag{position:absolute; left:10px; bottom:10px; display:inline-flex; align-items:center; gap:6px; padding:5px 9px 5px 7px; border-radius:20px; background:rgba(13,13,13,.55); color:#f4f2ec; font-size:10px; letter-spacing:1.4px; text-transform:uppercase; text-decoration:none; backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); opacity:0; transform:translateY(6px); transition:opacity .4s .35s, transform .4s .35s, background .2s;}
 .fit-tag i{width:6px; height:6px; border-radius:50%; background:#f4f2ec; box-shadow:0 0 0 3px rgba(244,242,236,.25);}
 .fit-sel figure.on .fit-tag{opacity:1; transform:none;}
 .fit-tag:hover{background:#f4f2ec; color:#0d0d0d;} .fit-tag:hover i{background:#0d0d0d;}
 /* titolo fit: grande da computer, piccolo e su una riga da telefono (le due misure sono separate) */
-@media(max-width:719px){.fits-motto{font-size:5.6vw; white-space:nowrap;} .fits-band{padding-block:12px;}}
+@media(max-width:719px){.fits-motto{font-size:4.5vw; white-space:nowrap;} .fits-band{padding-block:12px;}}
 
 /* scheda tecnica + contenuto della confezione */
 .pd-spec{margin:26px 0 0; padding:0; border-top:1px solid var(--line);}
