@@ -54,10 +54,10 @@ var PRODUCTS = [
       { c: "Black",         img: "p/undulance-black.jpg",       gallery: ["p/undulance-black.jpg", "p/undulance-black-45.jpg"],       stock: 1, sw: ["#111111", "#3a3a3a"] },
       { c: "Black / Brown", img: "p/undulance-black-brown.jpg", gallery: ["p/undulance-black-brown.jpg", "p/undulance-black-brown-45.jpg"], stock: 1, sw: ["#111111", "#7a4a24"] },
       { c: "Orange",        img: "p/undulance-orange.jpg",      gallery: ["p/undulance-orange.jpg", "p/undulance-orange-45.jpg"],      stock: 1, sw: ["#c2521c", "#3f5a45"] } ] },
-  { id: "ow-square-miami", name: "OW Square Miami", price: 29.90, colors: [
-      { c: "Black",  img: "p/owmiami-black.jpg", gallery: ["p/owmiami-black.jpg", "p/owmiami-black-45.jpg"], stock: 1, sw: ["#141414", "#3a3a3a"] },
-      { c: "Blue",   img: "p/owmiami-blue.jpg",  gallery: ["p/owmiami-blue.jpg", "p/owmiami-blue-45.jpg"],  stock: 1, sw: ["#1f8fe0", "#3d5ea8"] },
-      { c: "Silver", img: "p/owmiami-silver-mirror.jpg", gallery: ["p/owmiami-silver-mirror.jpg", "p/owmiami-silver-mirror-45.jpg", "p/owmiami-silver-mirror-back.jpg"], stock: 1, sw: ["#d4d6d8", "#b9bcc0"] } ] },
+  { id: "square-miami",    name: "Square Miami",    price: 33.90, colors: [
+      { c: "Black",  img: "p/squaremiami-black.jpg", gallery: ["p/squaremiami-black.jpg", "p/squaremiami-black-45.jpg"], stock: 1, sw: ["#141414", "#3a3a3a"] },
+      { c: "Blue",   img: "p/squaremiami-blue.jpg",  gallery: ["p/squaremiami-blue.jpg", "p/squaremiami-blue-45.jpg"],  stock: 1, sw: ["#1f8fe0", "#3d5ea8"] },
+      { c: "Silver", img: "p/squaremiami-silver-mirror.jpg", gallery: ["p/squaremiami-silver-mirror.jpg", "p/squaremiami-silver-mirror-45.jpg", "p/squaremiami-silver-mirror-back.jpg"], stock: 1, sw: ["#d4d6d8", "#b9bcc0"] } ] },
   { id: "round-miami",    name: "Round Miami",    price: 33.90, colors: [
       { c: "Black",  img: "p/roundmiami-black.jpg", gallery: ["p/roundmiami-black.jpg", "p/roundmiami-black-45.jpg", "p/roundmiami-black-back.jpg"], stock: 1, sw: ["#141414", "#3a3a3a"] },
       { c: "Blue",   img: "p/roundmiami-blue.jpg",  gallery: ["p/roundmiami-blue.jpg", "p/roundmiami-blue-45.jpg"],  stock: 1, sw: ["#1f8fe0", "#3d5ea8"] },
@@ -84,7 +84,7 @@ var PRODUCTS = [
       { c: "Silver / Pink",  img: "p/virginiax-pink.jpg",  stock: 0, sw: ["#c9c9c6", "#f2b8c6"] } ] },
   { id: "alien-berlin",   name: "Alien Berlin",   price: 39.90, colors: [{ c: null, img: "p/alien-berlin.jpg", stock: 1 }] },
   { id: "bones-2",        name: "Bones 2",        price: 33.90, colors: [{ c: null, img: "p/bones-2.jpg", stock: 1 }] },
-  { id: "bruxelles-base", name: "Bruxelles Base", price: 22.90, was: 29.90, colors: [{ c: null, img: "p/bruxelles-base.jpg", stock: 1 }] },
+  { id: "bruxelles-base", name: "Bruxelles Base", price: 29.90, colors: [{ c: null, img: "p/bruxelles-base.jpg", stock: 1 }] },
   { id: "virginia",       name: "Virginia",       price: 33.90, fit: "p/virginia-fit.jpg", colors: [
       { c: "Gold / Brown",    img: "p/virginia-gold.jpg",     stock: 1, sw: ["#c8a96b", "#7a4f2a"] },
       { c: "Black / Green",   img: "p/virginia-black.jpg",    stock: 1, sw: ["#1a1a1a", "#3f5a45"] },
@@ -106,7 +106,7 @@ var PRODUCTS = [
 var FITS = [
   { img: "c/fit/fit-01.jpg", id: "alien-berlin" },
   { img: "c/fit/fit-02.jpg", id: "virginia" },
-  { img: "c/fit/fit-03.jpg", id: "ow-square-miami", name: "Square Miami" },
+  { img: "c/fit/fit-03.jpg", id: "square-miami", name: "Square Miami" },
   { img: "c/fit/fit-04.jpg?v=2", id: "round-berlin", name: "Round Berlin" },
   { img: "c/fit/fit-05.jpg", id: "undulance" },
   { img: "c/fit/fit-06.jpg", id: "", name: "Nose XS" },
@@ -137,7 +137,7 @@ var KEY = "ussess_cart_v2";
 var memCart = [];
 function readCart(){ try { var v = JSON.parse(localStorage.getItem(KEY) || "[]"); return Array.isArray(v) ? v : []; } catch(e){ return memCart; } }
 function writeCart(c){ memCart = c; try { localStorage.setItem(KEY, JSON.stringify(c)); } catch(e){} updateBadge(); }
-function product(id){ for (var i=0;i<PRODUCTS.length;i++) if (PRODUCTS[i].id===id) return PRODUCTS[i]; return null; }
+function product(id){ if (id==="ow-square-miami") id="square-miami"; for (var i=0;i<PRODUCTS.length;i++) if (PRODUCTS[i].id===id) return PRODUCTS[i]; return null; }
 function color(p, ci){ return p.colors[ci] || null; }
 function eur(n){ return n==null ? "\u2014" : "\u20AC " + (Math.round(n*100)/100).toFixed(2).replace(".", ","); }
 function count(){ return readCart().reduce(function(s,i){ return s+i.qty; }, 0); }
