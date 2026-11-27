@@ -109,7 +109,8 @@ var PRODUCTS = [
   { id: "virginia-x",     name: "Virginia X",     price: 33.90, colors: [
       { c: "Silver / Clear", img: "p/virginiax-clear.jpg", stock: 1, sw: ["#c9c9c6", "#eef0f0"] },
       { c: "Silver / Pink",  img: "p/virginiax-pink.jpg",  stock: 0, sw: ["#c9c9c6", "#f2b8c6"] } ] },
-  { id: "alien-berlin", name: "Alien Berlin", price: 39.90, liveColors: [{ c: null, img: "p/alien-berlin.jpg", stock: 1 }], colors: [
+  { id: "alien-berlin", name: "Alien Berlin", price: 39.90, colors: [
+      { c: "Black / Smoke", img: "p/alien-berlin-black.jpg", gallery: ["p/alien-berlin-black.jpg", "p/alien-berlin-black-45.jpg"], stock: 0, sw: ["#141414", "#3a3a3a"] },
       { c: "Black / Yellow", img: "p/alien-berlin-yellow.jpg", gallery: ["p/alien-berlin-yellow.jpg", "p/alien-berlin-yellow-45.jpg"], stock: 1, sw: ["#141414", "#c9a24a"] },
       { c: "Mirror Grey", img: "p/alien-berlin-mirror-45.jpg", stock: 3, sw: ["#c9cbce", "#b9bcc0"] },
       { c: "Maculate", img: "p/alien-berlin-maculate-45.jpg", stock: 3, sw: ["#8a7564", "#4fc0a0"] },
@@ -204,6 +205,9 @@ function closeMenu(){ document.getElementById("drawer").classList.remove("open")
 
 /* ---------- CATALOGO (home) ---------- */
 function firstAvail(p){ for (var k=0;k<p.colors.length;k++) if (p.colors[k].stock > 0) return k; return 0; }
+// Colore mostrato sulla scheda del catalogo: il primo (in ordine, il nero davanti) che ha la foto frontale, anche se esaurito.
+function hasFront(v){ return !/-45\.jpg/.test(v.img); }
+function cardColor(p){ for (var k=0;k<p.colors.length;k++) if (hasFront(p.colors[k])) return k; return firstAvail(p); }
 function thumbHTML(p, ci){
   var v = p.colors[ci], h = "";
   var fitb = p.fit ? '<button type="button" class="fitbtn" aria-label="'+T("fit.aria")+'">Fit</button>' : '';
@@ -217,7 +221,7 @@ function thumbHTML(p, ci){
   return '<div class="thumb"><img src="'+v.img+'" alt="'+itemName(p, ci)+'" loading="lazy">' + fitb + '</div>';
 }
 function cardHTML(p){
-  var ci = firstAvail(p), v = p.colors[ci], h = "";
+  var ci = cardColor(p), v = p.colors[ci], h = "";
   h += thumbHTML(p, ci);
   h += '<div class="swatches">';
   if (p.colors.length > 1) {
@@ -252,7 +256,7 @@ function renderCatalog(){
   if (SWING) document.documentElement.classList.add("swing");
   var more = document.createElement("div"); more.id = "more"; more.hidden = true; more.style.display = "contents";
   PRODUCTS.forEach(function(p, i){
-    var a = document.createElement("article"); a.className = "card"; a.setAttribute("data-id", p.id); a.setAttribute("data-ci", firstAvail(p));
+    var a = document.createElement("article"); a.className = "card"; a.setAttribute("data-id", p.id); a.setAttribute("data-ci", cardColor(p));
     a.style.setProperty("--d", (-(i * 1.3) % 7) + "s");
     a.innerHTML = cardHTML(p);
     (i < VISIBLE ? grid : more).appendChild(a);
