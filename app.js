@@ -10,30 +10,30 @@ var PAYPAL = { clientId: "BAAiBf5ThQSY0YJyS9Ze5pBfLH4M0Hcji7vmgEZtK2K6RVQ5OZHQsB
 // Quando un pezzo viene venduto: abbassa lo stock di quella colorazione (0 = esaurito).
 // gallery = più foto della stessa colorazione, a scorrimento (facoltativa). fit = foto indossata (facoltativa). Per sospendere un modello spostalo tra i SOSPESI.
 var PRODUCTS = [
-  { id: "tron-25", name: "Tron 25", price: 33.90, preview: true, colors: [
-      { c: "Black / Smoke", img: "p/tron-25-black.jpg", gallery: ["p/tron-25-black.jpg", "p/tron-25-black-45.jpg"], stock: 2, sw: ["#121212", "#3a3a3a"] },
-      { c: "Brown / Smoke", img: "p/tron-25-brown.jpg", gallery: ["p/tron-25-brown.jpg", "p/tron-25-brown-45.jpg"], stock: 2, sw: ["#4a3226", "#3a3a3a"] },
-      { c: "Orange / Smoke", img: "p/tron-25-orange.jpg", gallery: ["p/tron-25-orange.jpg", "p/tron-25-orange-45.jpg"], stock: 2, sw: ["#e0401e", "#3a3a3a"] },
-      { c: "Transparent / Smoke", img: "p/tron-25-clear.jpg", gallery: ["p/tron-25-clear.jpg", "p/tron-25-clear-45.jpg"], stock: 2, sw: ["#e6eaee", "#3a3a3a"] } ] },
+  { id: "tron-26", name: "Tron 26", price: 33.90, preview: true, colors: [
+      { c: "Black / Smoke", img: "p/tron-26-black.jpg", gallery: ["p/tron-26-black.jpg", "p/tron-26-black-45.jpg"], stock: 2, sw: ["#121212", "#3a3a3a"] },
+      { c: "Brown / Smoke", img: "p/tron-26-brown.jpg", gallery: ["p/tron-26-brown.jpg", "p/tron-26-brown-45.jpg"], stock: 2, sw: ["#4a3226", "#3a3a3a"] },
+      { c: "Orange / Smoke", img: "p/tron-26-orange.jpg", gallery: ["p/tron-26-orange.jpg", "p/tron-26-orange-45.jpg"], stock: 2, sw: ["#e0401e", "#3a3a3a"] },
+      { c: "Transparent / Smoke", img: "p/tron-26-clear.jpg", gallery: ["p/tron-26-clear.jpg", "p/tron-26-clear-45.jpg"], stock: 2, sw: ["#e6eaee", "#3a3a3a"] } ] },
   { id: "goth-berlin", name: "Goth Berlin", price: 33.90, preview: true, colors: [
       { c: "Black / Smoke", img: "p/goth-berlin-black.jpg", gallery: ["p/goth-berlin-black.jpg", "p/goth-berlin-black-45.jpg"], stock: 2, sw: ["#121212", "#3a3a3a"] },
       { c: "Silver / Silver Mirror", img: "p/goth-berlin-silver.jpg", gallery: ["p/goth-berlin-silver.jpg", "p/goth-berlin-silver-45.jpg"], stock: 2, sw: ["#c9cbce", "#a9adb1"] },
       { c: "Orange / Gold Mirror", img: "p/goth-berlin-orange.jpg", gallery: ["p/goth-berlin-orange.jpg", "p/goth-berlin-orange-45.jpg"], stock: 2, sw: ["#e0601e", "#d6c21e"] },
       { c: "Red / Smoke", img: "p/goth-berlin-red.jpg", gallery: ["p/goth-berlin-red.jpg", "p/goth-berlin-red-45.jpg"], stock: 1, sw: ["#b3121c", "#3a3a3a"] } ] },
-  { id: "tokyo-x", name: "Tokyo X", price: 39.90, preview: true, colors: [
+  { id: "tokyo-x", name: "Tokyo X", price: 39.90, colors: [
       { c: "Silver / Ice Blue Mirror", img: "p/tokyo-x-blue.jpg", gallery: ["p/tokyo-x-blue.jpg", "p/tokyo-x-blue-45.jpg"], stock: 1, sw: ["#b9b6ae", "#5cc8f0"] },
       { c: "Gunmetal / Orange Mirror", img: "p/tokyo-x-orange.jpg", gallery: ["p/tokyo-x-orange.jpg", "p/tokyo-x-orange-45.jpg"], stock: 2, sw: ["#5d5f63", "#f0541e"] },
       { c: "Black / Smoke", img: "p/tokyo-x-black.jpg", gallery: ["p/tokyo-x-black.jpg", "p/tokyo-x-black-45.jpg"], stock: 0, sw: ["#121212", "#3a3a3a"] },
       { c: "Silver / Pink Mirror", img: "p/tokyo-x-pink.jpg", gallery: ["p/tokyo-x-pink.jpg", "p/tokyo-x-pink-45.jpg"], stock: 0, sw: ["#b9b6ae", "#f08ad6"] } ] },
-  { id: "nose-25", name: "Nose 25", price: 33.90, preview: true, colors: [
-      { c: "Black / Smoke", img: "p/nose-25-black.jpg", gallery: ["p/nose-25-black.jpg", "p/nose-25-black-45.jpg"], stock: 2, sw: ["#141414", "#4a4f56"] },
-      { c: "Brown", img: "p/nose-25-brown.jpg", gallery: ["p/nose-25-brown.jpg", "p/nose-25-brown-45.jpg"], stock: 2, sw: ["#6b3f1f", "#8a5a2b"] } ] },
-  { id: "racing-foam", name: "Racing Foam", price: 34.90, preview: true, colors: [
-      { c: "Black / Smoke", img: "p/racing-foam-black.jpg", gallery: ["p/racing-foam-black.jpg", "p/racing-foam-black-45.jpg"], stock: 1, sw: ["#141414", "#3a3a3a"] },
+  { id: "nose-26", name: "Nose 26", price: 33.90, colors: [
+      { c: "Black / Smoke", img: "p/nose-26-black.jpg", gallery: ["p/nose-26-black.jpg", "p/nose-26-black-45.jpg"], stock: 2, sw: ["#141414", "#4a4f56"] },
+      { c: "Brown", img: "p/nose-26-brown.jpg", gallery: ["p/nose-26-brown.jpg", "p/nose-26-brown-45.jpg"], stock: 2, sw: ["#6b3f1f", "#8a5a2b"] } ] },
+  { id: "racing-foam", name: "Racing Foam", price: 34.90, colors: [
+      { c: "Black / Smoke", img: "p/racing-foam-black.jpg", gallery: ["p/racing-foam-black.jpg", "p/racing-foam-black-45.jpg"], stock: 0, sw: ["#141414", "#3a3a3a"] },
       { c: "Black / Yellow", img: "p/racing-foam-light-45.jpg", stock: 2, sw: ["#141414", "#e0c060"] },
       { c: "Black / Rainbow Mirror", img: "p/racing-foam-rainbow-45.jpg", stock: 1, sw: ["#141414", "#f07a5a"] },
       { c: "Lime / Rainbow Mirror", img: "p/racing-foam-lime-45.jpg", stock: 2, sw: ["#b5e61e", "#2aa0a0"] } ] },
-  { id: "virginia-square", name: "Virginia Square", price: 42.90, preview: true, colors: [
+  { id: "virginia-square", name: "Virginia Square", price: 45.90, preview: true, colors: [
       { c: "Black / Smoke", img: "p/virginia-square-black.jpg", gallery: ["p/virginia-square-black.jpg", "p/virginia-square-black-45.jpg"], stock: 2, sw: ["#141414", "#3a3a3a"] },
       { c: "Silver / Clear", img: "p/virginia-square-silver.jpg", gallery: ["p/virginia-square-silver.jpg", "p/virginia-square-silver-45.jpg"], stock: 2, sw: ["#c9cbce", "#e6ebd6"] },
       { c: "Black / Amber", img: "p/virginia-square-amber-45.jpg", stock: 2, sw: ["#141414", "#b07a2a"] } ] },
@@ -698,9 +698,10 @@ var SPECS = {
   "square-milan":     { mat: "acetate" },
   "goth-berlin":      { mat: "tpu" },
   "tokyo-x":          { polar: true, cat: "cycling" },
-  "nose-25":          { mat: "pu" },
+  "nose-26":          { mat: "pu" },
   "racing-foam":      { polar: true, cat: "cycling", acc: "foam" },
-  "virginia-square":  { polar: true }
+  "virginia-square":  { mat: "metal", polar: true },
+  "tron-26":          { mat: "acetate", fin: "matte" }
 };
 function specHTML(id){
   var x = SPECS[id] || {}, rows = [];
