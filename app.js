@@ -10,6 +10,33 @@ var PAYPAL = { clientId: "BAAiBf5ThQSY0YJyS9Ze5pBfLH4M0Hcji7vmgEZtK2K6RVQ5OZHQsB
 // Quando un pezzo viene venduto: abbassa lo stock di quella colorazione (0 = esaurito).
 // gallery = più foto della stessa colorazione, a scorrimento (facoltativa). fit = foto indossata (facoltativa). Per sospendere un modello spostalo tra i SOSPESI.
 var PRODUCTS = [
+  { id: "tron-25", name: "Tron 25", price: 33.90, preview: true, colors: [
+      { c: "Black / Smoke", img: "p/tron-25-black.jpg", gallery: ["p/tron-25-black.jpg", "p/tron-25-black-45.jpg"], stock: 2, sw: ["#121212", "#3a3a3a"] },
+      { c: "Brown / Smoke", img: "p/tron-25-brown.jpg", gallery: ["p/tron-25-brown.jpg", "p/tron-25-brown-45.jpg"], stock: 2, sw: ["#4a3226", "#3a3a3a"] },
+      { c: "Orange / Smoke", img: "p/tron-25-orange.jpg", gallery: ["p/tron-25-orange.jpg", "p/tron-25-orange-45.jpg"], stock: 2, sw: ["#e0401e", "#3a3a3a"] },
+      { c: "Transparent / Smoke", img: "p/tron-25-clear.jpg", gallery: ["p/tron-25-clear.jpg", "p/tron-25-clear-45.jpg"], stock: 2, sw: ["#e6eaee", "#3a3a3a"] } ] },
+  { id: "goth-berlin", name: "Goth Berlin", price: 33.90, preview: true, colors: [
+      { c: "Black / Smoke", img: "p/goth-berlin-black.jpg", gallery: ["p/goth-berlin-black.jpg", "p/goth-berlin-black-45.jpg"], stock: 2, sw: ["#121212", "#3a3a3a"] },
+      { c: "Silver / Silver Mirror", img: "p/goth-berlin-silver.jpg", gallery: ["p/goth-berlin-silver.jpg", "p/goth-berlin-silver-45.jpg"], stock: 2, sw: ["#c9cbce", "#a9adb1"] },
+      { c: "Orange / Gold Mirror", img: "p/goth-berlin-orange.jpg", gallery: ["p/goth-berlin-orange.jpg", "p/goth-berlin-orange-45.jpg"], stock: 2, sw: ["#e0601e", "#d6c21e"] },
+      { c: "Red / Smoke", img: "p/goth-berlin-red.jpg", gallery: ["p/goth-berlin-red.jpg", "p/goth-berlin-red-45.jpg"], stock: 1, sw: ["#b3121c", "#3a3a3a"] } ] },
+  { id: "tokyo-x", name: "Tokyo X", price: 39.90, preview: true, colors: [
+      { c: "Silver / Ice Blue Mirror", img: "p/tokyo-x-blue.jpg", gallery: ["p/tokyo-x-blue.jpg", "p/tokyo-x-blue-45.jpg"], stock: 1, sw: ["#b9b6ae", "#5cc8f0"] },
+      { c: "Gunmetal / Orange Mirror", img: "p/tokyo-x-orange.jpg", gallery: ["p/tokyo-x-orange.jpg", "p/tokyo-x-orange-45.jpg"], stock: 2, sw: ["#5d5f63", "#f0541e"] },
+      { c: "Black / Smoke", img: "p/tokyo-x-black.jpg", gallery: ["p/tokyo-x-black.jpg", "p/tokyo-x-black-45.jpg"], stock: 0, sw: ["#121212", "#3a3a3a"] },
+      { c: "Silver / Pink Mirror", img: "p/tokyo-x-pink.jpg", gallery: ["p/tokyo-x-pink.jpg", "p/tokyo-x-pink-45.jpg"], stock: 0, sw: ["#b9b6ae", "#f08ad6"] } ] },
+  { id: "nose-25", name: "Nose 25", price: 33.90, preview: true, colors: [
+      { c: "Black / Smoke", img: "p/nose-25-black.jpg", gallery: ["p/nose-25-black.jpg", "p/nose-25-black-45.jpg"], stock: 2, sw: ["#141414", "#4a4f56"] },
+      { c: "Brown", img: "p/nose-25-brown.jpg", gallery: ["p/nose-25-brown.jpg", "p/nose-25-brown-45.jpg"], stock: 2, sw: ["#6b3f1f", "#8a5a2b"] } ] },
+  { id: "racing-foam", name: "Racing Foam", price: 34.90, preview: true, colors: [
+      { c: "Black / Smoke", img: "p/racing-foam-black.jpg", gallery: ["p/racing-foam-black.jpg", "p/racing-foam-black-45.jpg"], stock: 1, sw: ["#141414", "#3a3a3a"] },
+      { c: "Black / Yellow", img: "p/racing-foam-light-45.jpg", stock: 2, sw: ["#141414", "#e0c060"] },
+      { c: "Black / Rainbow Mirror", img: "p/racing-foam-rainbow-45.jpg", stock: 1, sw: ["#141414", "#f07a5a"] },
+      { c: "Lime / Rainbow Mirror", img: "p/racing-foam-lime-45.jpg", stock: 2, sw: ["#b5e61e", "#2aa0a0"] } ] },
+  { id: "virginia-square", name: "Virginia Square", price: 42.90, preview: true, colors: [
+      { c: "Black / Smoke", img: "p/virginia-square-black.jpg", gallery: ["p/virginia-square-black.jpg", "p/virginia-square-black-45.jpg"], stock: 2, sw: ["#141414", "#3a3a3a"] },
+      { c: "Silver / Clear", img: "p/virginia-square-silver.jpg", gallery: ["p/virginia-square-silver.jpg", "p/virginia-square-silver-45.jpg"], stock: 2, sw: ["#c9cbce", "#e6ebd6"] },
+      { c: "Black / Amber", img: "p/virginia-square-amber-45.jpg", stock: 2, sw: ["#141414", "#b07a2a"] } ] },
   { id: "round-berlin",   name: "Round Berlin",   price: 39.90, colors: [
       { c: "Silver / Silver Mirror", img: "p/round-berlin-silver.jpg",       gallery: ["p/round-berlin-silver.jpg", "p/round-berlin-silver-45.jpg"],             stock: 1, sw: ["#c9cbcd", "#a9adb1"] },
       { c: "Red / Brown",            img: "p/round-berlin-red.jpg",          gallery: ["p/round-berlin-red.jpg", "p/round-berlin-red-45.jpg"],                   stock: 1, sw: ["#8e1c1c", "#d9a88e"] },
@@ -82,7 +109,12 @@ var PRODUCTS = [
   { id: "virginia-x",     name: "Virginia X",     price: 33.90, colors: [
       { c: "Silver / Clear", img: "p/virginiax-clear.jpg", stock: 1, sw: ["#c9c9c6", "#eef0f0"] },
       { c: "Silver / Pink",  img: "p/virginiax-pink.jpg",  stock: 0, sw: ["#c9c9c6", "#f2b8c6"] } ] },
-  { id: "alien-berlin",   name: "Alien Berlin",   price: 39.90, colors: [{ c: null, img: "p/alien-berlin.jpg", stock: 1 }] },
+  { id: "alien-berlin", name: "Alien Berlin", price: 39.90, liveColors: [{ c: null, img: "p/alien-berlin.jpg", stock: 1 }], colors: [
+      { c: "Black / Yellow", img: "p/alien-berlin-yellow.jpg", gallery: ["p/alien-berlin-yellow.jpg", "p/alien-berlin-yellow-45.jpg"], stock: 1, sw: ["#141414", "#c9a24a"] },
+      { c: "Mirror Grey", img: "p/alien-berlin-mirror-45.jpg", stock: 3, sw: ["#c9cbce", "#b9bcc0"] },
+      { c: "Maculate", img: "p/alien-berlin-maculate-45.jpg", stock: 3, sw: ["#8a7564", "#4fc0a0"] },
+      { c: "White", img: "p/alien-berlin-white-45.jpg", stock: 2, sw: ["#f2f2f2", "#3a3a3a"] },
+      { c: "Black / Brown", img: "p/alien-berlin-brown-45.jpg", stock: 0, sw: ["#141414", "#7a4a24"] } ] },
   { id: "bones-2",        name: "Bones 2",        price: 33.90, colors: [{ c: null, img: "p/bones-2.jpg", stock: 1 }] },
   { id: "bruxelles-base", name: "Bruxelles Base", price: 29.90, colors: [{ c: null, img: "p/bruxelles-base.jpg", stock: 1 }] },
   { id: "virginia",       name: "Virginia",       price: 33.90, fit: "p/virginia-fit.jpg", colors: [
@@ -96,11 +128,18 @@ var PRODUCTS = [
       { c: "Red",        img: "p/main-milan-red.jpg",  stock: 1, sw: ["#b3121c", "#2f2f2f"] },
       { c: "Grey",       img: "p/main-milan-grey.jpg", stock: 1, sw: ["#9b989a", "#d9d9d9"] },
       { c: "Aquamarine", img: "p/main-milan-aqua.jpg", stock: 1, sw: ["#b9d1c6", "#c9a79a"] } ] },
-  { id: "berlin-base",    name: "Berlin Base",    price: 19.90, was: 24.90, colors: [{ c: null, img: "p/berlin-base.jpg", stock: 1 }] },
   { id: "tron",           name: "Tron",           price: 33.90, colors: [{ c: null, img: "p/cycle.jpg", stock: 1 }] },
   { id: "disco-cycle",    name: "Disco Cycle",    price: 19.90, was: 24.90, colors: [{ c: null, img: "p/disco-cycle.jpg", stock: 1 }] },
   { id: "london-rider",   name: "London Rider",   price: 29.90, colors: [{ c: null, img: "p/enzo-line.jpg", stock: 1 }] }
 ];
+// ANTEPRIMA: i modelli con preview: true (e le liveColors) si vedono solo aprendo il sito con ?preview=1 (resta attiva nella sessione; ?preview=0 la spegne).
+var PREVIEW = (function(){ try { var q = location.search;
+  if (/[?&]preview=1/.test(q)) sessionStorage.setItem("ussess_preview", "1");
+  if (/[?&]preview=0/.test(q)) sessionStorage.removeItem("ussess_preview");
+  return sessionStorage.getItem("ussess_preview") === "1"; } catch(e){ return /[?&]preview=1/.test(location.search); } })();
+PRODUCTS = PRODUCTS.filter(function(p){ return PREVIEW || !p.preview; });
+PRODUCTS.forEach(function(p){ if (!PREVIEW && p.liveColors) p.colors = p.liveColors; });
+if (PREVIEW) document.addEventListener("DOMContentLoaded", function(){ var b = document.createElement("a"); b.href = "?preview=0"; b.className = "preview-badge"; b.textContent = "ANTEPRIMA \u00b7 esci"; document.body.appendChild(b); });
 // FOTO FIT — galleria "Made for all of USS" in home. id = modello indossato (vuoto = non ancora assegnato).
 // Il primo fit di ogni modello diventa anche il bottone "Fit" sulla sua scheda nel catalogo.
 var FITS = [
@@ -116,6 +155,7 @@ var FITS = [
   { img: "c/fit/fit-10.jpg", id: "square-rider", name: "Venice Rider" }
 ];
 FITS.forEach(function(f){ var p = f.id && product(f.id); if (p && !p.fit) p.fit = f.img; });
+// SOSPESI: { id: "berlin-base", name: "Berlin Base", price: 19.90, was: 24.90, colors: [{ c: null, img: "p/berlin-base.jpg", stock: 1 }] }  (tolto il 27/11/2026)
 // SOSPESI: { id: "bones", name: "Bones", price: null, colors: [{ c: null, img: "p/bones.jpg", stock: 0 }] }
 var COLS = (window.matchMedia && matchMedia("(max-width:719px)").matches) ? 2 : 3; // 2 colonne su telefono
 var VISIBLE = COLS === 2 ? 6 : 3; // quanti modelli a vista prima del "+"
@@ -655,7 +695,12 @@ var SPECS = {
   "berlin-mask":      { fin: "enamel" },
   "wien":             { fin: "enamel", cat: "cycling" },
   "round-berlin":     { mat: "pu", fin: "enamel", cat: "avant" },
-  "square-milan":     { mat: "acetate" }
+  "square-milan":     { mat: "acetate" },
+  "goth-berlin":      { mat: "tpu" },
+  "tokyo-x":          { polar: true, cat: "cycling" },
+  "nose-25":          { mat: "pu" },
+  "racing-foam":      { polar: true, cat: "cycling", acc: "foam" },
+  "virginia-square":  { polar: true }
 };
 function specHTML(id){
   var x = SPECS[id] || {}, rows = [];
